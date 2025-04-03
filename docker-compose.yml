@@ -1,53 +1,17 @@
 version: '3'
 
 services:
-  # MongoDB - Veritabanı
-  mongodb:
-    image: mongo:5.0
-    volumes:
-      - mongodb-data:/data/db
-    ports:
-      - "27017:27017"
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=password
-
   # RabbitMQ - Kuyruklama sistemi
   rabbitmq:
     image: rabbitmq:3-management
     ports:
-      - "5672:5672"  # AMQP protokolü
-      - "15672:15672"  # Yönetim arayüzü
+      - "5673:5672"  # AMQP protokolü
+      - "15673:15672"  # Yönetim arayüzü
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
     environment:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=password
 
-  # Backend - FastAPI
-  backend:
-    build: ./backend
-    ports:
-      - "8000:8000"
-    depends_on:
-      - mongodb
-      - rabbitmq
-    environment:
-      - MONGO_URI=mongodb://admin:password@mongodb:27017
-      - MONGO_DB_NAME=air_quality_db
-      - RABBITMQ_HOST=rabbitmq
-      - RABBITMQ_USER=admin
-      - RABBITMQ_PASS=password
-      - DEBUG=True
-
-  # Frontend - React
-  frontend:
-    build: ./frontend
-    ports:
-      - "3000:80"
-    depends_on:
-      - backend
-
 volumes:
-  mongodb-data:
   rabbitmq-data: 

@@ -33,15 +33,15 @@
 ### 2. Veritabanı ve Kuyruklama Sisteminin Kurulması (2 gün)
 
 #### MongoDB:
-- [ ] Veritabanı ve koleksiyon yapısının tasarımı
-- [ ] Zaman serisi koleksiyonlarının oluşturulması
-- [ ] İndeksleme stratejisinin belirlenmesi
-- [ ] Coğrafi sorgular için indekslerin yapılandırılması
+- [x] Veritabanı ve koleksiyon yapısının tasarımı
+- [x] Zaman serisi koleksiyonlarının oluşturulması
+- [x] İndeksleme stratejisinin belirlenmesi
+- [x] Coğrafi sorgular için indekslerin yapılandırılması
 
 #### RabbitMQ:
-- [ ] Kuyruk yapılandırması
-- [ ] Exchange ve binding tanımları
-- [ ] Mesaj formatı belirleme
+- [x] Kuyruk yapılandırması
+- [x] Exchange ve binding tanımları
+- [x] Mesaj formatı belirleme
 
 ### 3. Backend Geliştirme (5-7 gün)
 

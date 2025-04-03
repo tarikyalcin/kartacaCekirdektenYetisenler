@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import API_HOST, API_PORT
+from app.services.database import db
+from app.services.rabbitmq import rabbitmq
 
 app = FastAPI(
     title="Hava Kirliliği İzleme API",
@@ -16,6 +18,20 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.on_event("startup")
+async def startup_event():
+    # MongoDB bağlantısı ve indekslerin oluşturulması
+    await db.init_db()
+    
+    # RabbitMQ bağlantısı ve kuyrukların oluşturulması
+    await rabbitmq.connect()
+    await rabbitmq.setup_queues()
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    # RabbitMQ bağlantısının kapatılması
+    await rabbitmq.close()
 
 @app.get("/")
 async def root():
