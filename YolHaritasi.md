@@ -12,7 +12,7 @@
 
 ## Detaylı Yol Haritası
 
-### 1. Proje Yapısının Oluşturulması (2-3 gün)
+### 1. Proje Yapısının Oluşturulması ✅
 
 #### Backend (FastAPI):
 - [x] Proje dizin yapısının oluşturulması
@@ -21,16 +21,16 @@
 - [x] Veritabanı ve kuyruklama bağlantılarının yapılandırılması
 
 #### Frontend (React):
-- [x] Create React App ile proje oluşturma
-- [x] Gerekli kütüphanelerin kurulumu (leaflet, chart.js, axios, socket.io-client)
-- [x] Temel sayfa yapısının ve komponentlerin planlanması
+- [ ] Create React App ile proje oluşturma
+- [ ] Gerekli kütüphanelerin kurulumu (leaflet, chart.js, axios, socket.io-client)
+- [ ] Temel sayfa yapısının ve komponentlerin planlanması
 
 #### Docker:
 - [x] Backend için Dockerfile oluşturma
-- [x] Frontend için Dockerfile oluşturma
+- [ ] Frontend için Dockerfile oluşturma
 - [x] Docker-compose.yml oluşturma (MongoDB, RabbitMQ, Backend, Frontend)
 
-### 2. Veritabanı ve Kuyruklama Sisteminin Kurulması (2 gün)
+### 2. Veritabanı ve Kuyruklama Sisteminin Kurulması ✅
 
 #### MongoDB:
 - [x] Veritabanı ve koleksiyon yapısının tasarımı
@@ -43,21 +43,22 @@
 - [x] Exchange ve binding tanımları
 - [x] Mesaj formatı belirleme
 
-### 3. Backend Geliştirme (5-7 gün)
+### 3. Backend Geliştirme 🟡
 
 #### API Endpoints:
-- [ ] Veri alma endpoint'i (`/api/data`)
+- [x] Veri alma endpoint'i (`/api/data`) - POST
 - [ ] Belirli bir konum için hava kalitesi verileri getiren endpoint (`/api/air-quality/{location}`)
 - [ ] Belirli bir zaman aralığında tespit edilen anomalileri listeleyen endpoint (`/api/anomalies`)
 - [ ] Coğrafi bölgeye göre kirlilik yoğunluğunu getiren endpoint (`/api/pollution-density`)
 
 #### Veri İşleme:
-- [ ] RabbitMQ'dan mesajları alma ve işleme
-- [ ] Anomali tespiti algoritmaları (Z-score, WHO threshold değerleri)
-- [ ] İşlenmiş verileri MongoDB'ye kaydetme
+- [x] RabbitMQ'dan mesajları alma ve işleme
+- [x] Anomali tespiti algoritmaları (threshold değerleri)
+- [ ] Tarihsel anomali tespiti için Z-score algoritmasının iyileştirilmesi
+- [x] İşlenmiş verileri MongoDB'ye kaydetme
 - [ ] WebSocket veya SSE ile gerçek zamanlı uyarılar gönderme
 
-### 4. Frontend Geliştirme (5-7 gün)
+### 4. Frontend Geliştirme 🔴
 
 #### Arayüz Komponentleri:
 - [ ] Ana sayfa düzeni (responsive)
@@ -71,55 +72,90 @@
 - [ ] WebSocket veya SSE ile gerçek zamanlı veri alma
 - [ ] Veri işleme ve görselleştirme
 
-### 5. Test Scriptleri Geliştirme (2-3 gün)
+### 5. Test Scriptleri Geliştirme 🔴
 
 #### Manuel Veri Girişi Script'i:
-- [x] Bash script oluşturma (`manual-input.sh`)
-- [x] API ile iletişim kurma
-- [x] Parametreleri doğrulama ve işleme
+- [ ] Bash script oluşturma (`manual-input.sh`)
+- [ ] API ile iletişim kurma
+- [ ] Parametreleri doğrulama ve işleme
 
 #### Otomatik Test Script'i:
-- [x] Bash script oluşturma (`auto-test.sh`)
-- [x] Rastgele konum ve kirlilik değerleri oluşturma
-- [x] Anomali senaryoları oluşturma
-- [x] İstek oranı ve çalışma süresi kontrolleri
+- [ ] Bash script oluşturma (`auto-test.sh`)
+- [ ] Rastgele konum ve kirlilik değerleri oluşturma
+- [ ] Anomali senaryoları oluşturma
+- [ ] İstek oranı ve çalışma süresi kontrolleri
 
-### 6. Sistemin Entegrasyonu ve Testleri (3-4 gün)
+### 6. Sistemin Entegrasyonu ve Testleri 🟡
 
-- [ ] Backend ve frontend entegrasyonu
-- [ ] Sistemin uçtan uca testleri
-- [ ] Anomali tespiti testleri
-- [ ] Performans testleri
-- [ ] Hata ayıklama
+- [x] Backend ve veritabanı entegrasyonu
+- [x] Backend ve mesajlaşma sistemi entegrasyonu
+- [ ] Frontend ve backend entegrasyonu
+- [x] Backend uçtan uca testleri
+- [x] Anomali tespiti testleri
+- [ ] Frontend testleri
+- [x] Hata yönetimi ve dayanıklılık testleri
 
-### 7. Containerization ve Dağıtım (2-3 gün)
+### 7. Containerization ve Dağıtım ✅
 
-- [x] Dockerfile'ların optimize edilmesi
+- [x] Backend için Dockerfile optimize edilmesi
 - [x] Docker-compose yapılandırmasının tamamlanması
-- [ ] Ortam değişkenlerinin yapılandırılması
-- [ ] Dağıtım testleri
-- [ ] Yük testleri
+- [x] MongoDB ve RabbitMQ konteynerlerinin yapılandırılması
+- [x] Ortam değişkenlerinin yapılandırılması
+- [x] Docker container başlatma ve durdurma testleri
 
-### 8. Dokümantasyon (2-3 gün)
+### 8. Dokümantasyon 🟡
 
+- [x] Hata çözümleri dokümantasyonu
+- [x] Önemli notlar dokümantasyonu
+- [x] Yol haritası ve ilerleme durumu
 - [ ] README dosyasının hazırlanması
 - [ ] API dokümantasyonu (Swagger/OpenAPI)
 - [ ] Kurulum ve kullanım rehberi
 - [ ] Sorun giderme rehberi
-- [ ] Proje mimarisi ve teknoloji seçimleri açıklaması
 
 ## Sistem Mimarisi ve Veri Akışı
 
 ### Veri Girişi:
-- Test scriptleri (manual-input.sh veya auto-test.sh) HTTP isteği ile veriyi backend'e gönderir.
+- Test scriptleri veya API isteği ile veri backend'e gönderilir.
+- POST `/api/data` endpoint'i veriyi alır ve RabbitMQ'ya iletir.
 
 ### Veri İşleme:
-- Backend alınan veriyi RabbitMQ'ya gönderir.
-- Worker RabbitMQ'dan veriyi alır, işler ve anomali tespiti yapar.
-- İşlenen veri MongoDB'ye kaydedilir.
-- Anomali tespit edilirse, WebSocket/SSE üzerinden frontend'e bildirim gönderilir.
+- Worker RabbitMQ'dan `raw_data` kuyruğundan veriyi alır.
+- Veri doğrulanır ve MongoDB'ye kaydedilir.
+- Anomali tespiti algoritmaları çalıştırılır (threshold ve Z-score).
+- Anomali tespit edilirse, anomali bilgileri MongoDB'ye kaydedilir.
+- İşlenmiş veri `processed_data` kuyruğuna, anomali bildirimleri `anomaly_notifications` kuyruğuna gönderilir.
 
-### Veri Sorgulama:
-- Frontend, kullanıcı isteklerine göre API endpoint'lerini çağırır.
-- Backend, MongoDB'den verileri sorgular ve frontend'e döner.
-- Frontend, verileri harita ve grafikler üzerinde görselleştirir. 
+### Veri Sorgulama ve İzleme:
+- GET endpoint'leri ile veriler sorgulanabilir.
+- Sağlık durumu `/health` endpoint'i ile izlenebilir.
+
+## Yapılan Geliştirmeler
+
+### Backend:
+- [x] FastAPI ile temel API yapısı oluşturuldu
+- [x] MongoDB bağlantısı ve indeksleme
+- [x] RabbitMQ entegrasyonu ve kuyruk yapılandırması
+- [x] Veri modelleri ve doğrulama (Pydantic)
+- [x] Anomali tespiti algoritmaları
+- [x] Hata yönetimi ve dayanıklılık iyileştirmeleri
+- [x] Sağlık kontrolü ve izleme endpoint'leri
+
+### Docker:
+- [x] MongoDB, RabbitMQ ve Backend servisleri için Docker Compose
+- [x] Volume yapılandırması (veri kalıcılığı)
+- [x] Ağ yapılandırması ve port eşlemeleri
+
+## Sonraki Adımlar
+
+### Öncelikli:
+1. Eksik API endpoint'lerinin tamamlanması
+2. Frontend projesinin oluşturulması ve temel komponentlerin geliştirilmesi
+3. Test script'lerinin geliştirilmesi
+4. README ve dokümantasyonun tamamlanması
+
+### İsteğe Bağlı Özellikler (Zaman Kalırsa):
+1. Tahminleme algoritması geliştirme
+2. WebSocket ile gerçek zamanlı bildirimler
+3. Birim testlerin yazılması
+4. CI/CD pipeline yapılandırması 
