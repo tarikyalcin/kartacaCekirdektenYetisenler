@@ -4,6 +4,7 @@ from datetime import datetime
 from typing import Optional, List, Dict, Any
 import logging
 from ..config import settings
+from ..utils.json_encoder import convert_mongo_document
 
 class Database:
     def __init__(self):
@@ -83,7 +84,9 @@ class Database:
             List[Dict[str, Any]]: Hava kalitesi verileri listesi
         """
         cursor = self.db.air_quality_data.find(query).sort("timestamp", DESCENDING).limit(limit)
-        return await cursor.to_list(length=limit)
+        results = await cursor.to_list(length=limit)
+        # ObjectId'leri string'e dönüştür
+        return convert_mongo_document(results)
 
     async def get_anomalies(self, query: dict, limit: int = 100) -> List[Dict[str, Any]]:
         """
@@ -97,7 +100,9 @@ class Database:
             List[Dict[str, Any]]: Anomali verileri listesi
         """
         cursor = self.db.anomalies.find(query).sort("detected_at", DESCENDING).limit(limit)
-        return await cursor.to_list(length=limit)
+        results = await cursor.to_list(length=limit)
+        # ObjectId'leri string'e dönüştür
+        return convert_mongo_document(results)
 
     async def aggregate_pollution_data(self, pipeline: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """
@@ -110,7 +115,9 @@ class Database:
             List[Dict[str, Any]]: Aggregate işlemi sonucu
         """
         cursor = self.db.air_quality_data.aggregate(pipeline)
-        return await cursor.to_list(length=None)
+        results = await cursor.to_list(length=None)
+        # ObjectId'leri string'e dönüştür
+        return convert_mongo_document(results)
         
     async def get_data_by_parameter(self, parameter: str, start_time: datetime, end_time: datetime, limit: int = 100) -> List[Dict[str, Any]]:
         """

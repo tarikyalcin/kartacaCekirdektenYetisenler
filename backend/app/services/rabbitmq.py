@@ -63,36 +63,52 @@ class RabbitMQ:
             self.exchange = None
             raise
     
-    async def setup_queues(self):
+    async def setup_exchanges_and_queues(self):
         """
-        Gerekli kuyrukları ve binding'leri oluşturur
+        Gerekli exchange'leri, kuyrukları ve binding'leri oluşturur
         """
-        if not self.channel or not self.exchange:
+        if not self.channel:
             raise Exception("RabbitMQ bağlantısı kurulmadan kuyruklar oluşturulamaz")
         
-        # Ham veri kuyruğu
-        raw_data_queue = await self.channel.declare_queue(
-            "raw_data", durable=True
-        )
-        await raw_data_queue.bind(self.exchange, "data.raw")
-        self.queues["raw_data"] = raw_data_queue
-        logger.info("RabbitMQ raw_data kuyruğu oluşturuldu")
-        
-        # İşlenmiş veri kuyruğu
-        processed_data_queue = await self.channel.declare_queue(
-            "processed_data", durable=True
-        )
-        await processed_data_queue.bind(self.exchange, "data.processed")
-        self.queues["processed_data"] = processed_data_queue
-        logger.info("RabbitMQ processed_data kuyruğu oluşturuldu")
-        
-        # Anomali bildirimleri kuyruğu
-        anomaly_queue = await self.channel.declare_queue(
-            "anomaly_notifications", durable=True
-        )
-        await anomaly_queue.bind(self.exchange, "anomaly.#")
-        self.queues["anomaly_notifications"] = anomaly_queue
-        logger.info("RabbitMQ anomaly_notifications kuyruğu oluşturuldu")
+        try:
+            # Exchange oluştur (topic tipinde)
+            self.exchange = await self.channel.declare_exchange(
+                "air_quality_exchange", ExchangeType.TOPIC, durable=True
+            )
+            
+            # Ham veri kuyruğu
+            raw_data_queue = await self.channel.declare_queue(
+                "raw_data", durable=True
+            )
+            await raw_data_queue.bind(self.exchange, "data.raw")
+            self.queues["raw_data"] = raw_data_queue
+            logger.info("RabbitMQ raw_data kuyruğu oluşturuldu")
+            
+            # İşlenmiş veri kuyruğu
+            processed_data_queue = await self.channel.declare_queue(
+                "processed_data", durable=True
+            )
+            await processed_data_queue.bind(self.exchange, "data.processed")
+            self.queues["processed_data"] = processed_data_queue
+            logger.info("RabbitMQ processed_data kuyruğu oluşturuldu")
+            
+            # Anomali bildirimleri kuyruğu
+            anomaly_queue = await self.channel.declare_queue(
+                "anomaly_notifications", durable=True
+            )
+            await anomaly_queue.bind(self.exchange, "anomaly.#")
+            self.queues["anomaly_notifications"] = anomaly_queue
+            logger.info("RabbitMQ anomaly_notifications kuyruğu oluşturuldu")
+            
+            logger.info("RabbitMQ exchange ve kuyrukları başarıyla oluşturuldu")
+        except Exception as e:
+            logger.error(f"RabbitMQ kuyrukları oluşturulurken hata: {str(e)}")
+            raise
+    
+    # setup_queues metodunu setup_exchanges_and_queues olarak yeniden adlandırarak geriye dönük uyumluluk sağla
+    async def setup_queues(self):
+        """Geriye dönük uyumluluk için"""
+        await self.setup_exchanges_and_queues()
     
     async def publish(self, routing_key: str, data: Dict[str, Any]):
         """

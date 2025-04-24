@@ -1,13 +1,18 @@
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 import logging
-import asyncio
-from app.config import settings
-from app.services.database import db
-from app.services.rabbitmq import rabbitmq
-from app.services.worker import worker
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from app.api.router import router as api_router
-from app.api.websocket import websocket_router
+from app.api.websocket import router as websocket_router
+from app.services.rabbitmq import rabbitmq
+from app.services.worker import start_workers
+from app.services.database import db
+from app.utils.json_encoder import JSONEncoder
+import json
+from bson import ObjectId
+from bson.errors import InvalidId
+from fastapi.encoders import jsonable_encoder
+import asyncio
 
 # Loglama yapılandırması
 logging.basicConfig(
@@ -16,124 +21,90 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# FastAPI uygulaması
 app = FastAPI(
     title="Hava Kirliliği İzleme API",
-    description="Dünya genelinde hava kirlilik verilerini toplayan, analiz eden ve görselleştiren platform API'si",
+    description="Hava kirliliği verilerini toplayan ve analiz eden API.",
     version="0.1.0",
 )
 
-# CORS ayarları
+# CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Güvenlik için production'da spesifik origin'ler belirtilmeli
+    allow_origins=["*"],  # Tüm originlere izin ver (geliştirme için)
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+# ObjectId'leri string'e dönüştürmek için özel JSON serileştirme
+@app.middleware("http")
+async def custom_json_serializer(request: Request, call_next):
+    response = await call_next(request)
+    
+    if response.headers.get("content-type") == "application/json":
+        body = await response.body()
+        try:
+            # JSON'u decode et
+            body_dict = json.loads(body)
+            # ObjectId'leri string'e dönüştür
+            json_compatible_body = json.dumps(body_dict, cls=JSONEncoder)
+            # Yeni response oluştur
+            return JSONResponse(
+                content=json.loads(json_compatible_body),
+                status_code=response.status_code,
+                headers=dict(response.headers),
+                media_type="application/json"
+            )
+        except:
+            # Hata durumunda orijinal response döndür
+            return response
+    
+    return response
+
+# API router'ları
+app.include_router(api_router, prefix="/api", tags=["api"])
+app.include_router(websocket_router, tags=["websocket"])
+
 @app.on_event("startup")
 async def startup_event():
-    logger.info("Uygulama başlatılıyor...")
+    # RabbitMQ bağlantısı
+    await rabbitmq.connect()
+    await rabbitmq.setup_exchanges_and_queues()
+    logger.info("RabbitMQ bağlantısı kuruldu")
     
-    # MongoDB bağlantısı ve indekslerin oluşturulması
-    db_connected = False
-    for attempt in range(3):  # Mongodb için 3 deneme
-        try:
-            await db.init_db()
-            logger.info("MongoDB bağlantısı kuruldu.")
-            db_connected = True
-            break
-        except Exception as e:
-            logger.error(f"MongoDB bağlantısı sırasında hata (deneme {attempt+1}/3): {str(e)}")
-            if attempt < 2:  # 3 denemeden az ise
-                wait_time = (attempt + 1) * 5  # Her seferinde artan bekleme süresi
-                logger.info(f"MongoDB bağlantısı için {wait_time} saniye bekleniyor...")
-                await asyncio.sleep(wait_time)
+    # MongoDB bağlantısı
+    await db.init_db()
+    logger.info("MongoDB bağlantısı kuruldu")
     
-    if not db_connected:
-        logger.error("MongoDB bağlantısı kurulamadı. API sınırlı işlevsellik ile çalışacak.")
-    
-    # MongoDB başarılı olduktan sonra RabbitMQ bağlantısı ve kuyrukların oluşturulması
-    rmq_connected = False
-    for attempt in range(3):  # RabbitMQ için 3 deneme
-        try:
-            await rabbitmq.connect()
-            await rabbitmq.setup_queues()
-            logger.info("RabbitMQ bağlantısı kuruldu ve kuyruklar oluşturuldu.")
-            rmq_connected = True
-            break
-        except Exception as e:
-            logger.error(f"RabbitMQ bağlantısı sırasında hata (deneme {attempt+1}/3): {str(e)}")
-            if attempt < 2:  # 3 denemeden az ise
-                wait_time = (attempt + 1) * 5  # Her seferinde artan bekleme süresi
-                logger.info(f"RabbitMQ bağlantısı için {wait_time} saniye bekleniyor...")
-                await asyncio.sleep(wait_time)
-    
-    if not rmq_connected:
-        logger.error("RabbitMQ bağlantısı kurulamadı. Mesajlaşma özellikleri çalışmayacak.")
-    
-    # RabbitMQ bağlantısı kurulduktan sonra worker servisini başlat
-    if rmq_connected:
-        try:
-            # Worker servisinin RabbitMQ'nun hazır olması için biraz bekletme
-            await asyncio.sleep(2)
-            await worker.start()
-            logger.info("Worker servisi başlatıldı.")
-        except Exception as e:
-            logger.error(f"Worker servisi başlatılırken hata: {str(e)}")
-    else:
-        logger.warning("RabbitMQ bağlantısı olmadığı için Worker servisi başlatılamadı.")
+    # Worker'ları başlat
+    asyncio.create_task(start_workers())
+    logger.info("Worker'lar başlatıldı")
 
 @app.on_event("shutdown")
 async def shutdown_event():
-    logger.info("Uygulama kapatılıyor...")
-    
-    # Worker servisini durdur
-    try:
-        await worker.stop()
-        logger.info("Worker servisi durduruldu.")
-    except Exception as e:
-        logger.error(f"Worker servisi durdurulurken hata: {str(e)}")
-    
-    # RabbitMQ bağlantısının kapatılması
-    try:
-        await rabbitmq.close()
-        logger.info("RabbitMQ bağlantısı kapatıldı.")
-    except Exception as e:
-        logger.error(f"RabbitMQ bağlantısı kapatılırken hata: {str(e)}")
+    # RabbitMQ bağlantısını kapat
+    await rabbitmq.close()
+    logger.info("RabbitMQ bağlantısı kapatıldı")
 
 @app.get("/")
 async def root():
-    """Ana sayfa endpoint'i"""
-    return {"message": "Hava Kirliliği İzleme API'sine Hoş Geldiniz"}
-
+    return {"message": "Hava Kirliliği İzleme API'ye Hoş Geldiniz"}
 
 @app.get("/health")
 async def health_check():
-    """Sağlık kontrolü endpoint'i"""
-    # Her iki hizmetin durumunu kontrol et
-    mongo_status = "healthy" if db.client else "unhealthy"
-    rabbitmq_status = "healthy" if rabbitmq.connection else "unhealthy"
-    
-    # Genel durum, her iki hizmet de sağlıklıysa sağlıklı
-    overall_status = "healthy" if mongo_status == "healthy" and rabbitmq_status == "healthy" else "degraded"
+    # MongoDB ve RabbitMQ durumlarını kontrol et
+    mongodb_status = "up" if db.db is not None else "down"
+    rabbitmq_status = "up" if rabbitmq.connection is not None else "down"
     
     return {
-        "status": overall_status,
+        "status": "ok" if mongodb_status == "up" and rabbitmq_status == "up" else "error",
         "services": {
-            "mongodb": mongo_status,
+            "mongodb": mongodb_status,
             "rabbitmq": rabbitmq_status
         }
     }
 
-
-# API router'ını ekle
-app.include_router(api_router, prefix="/api")
-
-# WebSocket router'ını ekle
-app.include_router(websocket_router)
-
-
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("app.main:app", host=settings.API_HOST, port=settings.API_PORT, reload=True) 
+    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True) 

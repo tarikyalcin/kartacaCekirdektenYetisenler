@@ -9,6 +9,7 @@ from app.services.rabbitmq import rabbitmq
 from app.services.anomaly_detection import anomaly_detector
 import json
 from pydantic import BaseModel, Field
+from bson import ObjectId
 
 logger = logging.getLogger(__name__)
 
@@ -278,26 +279,68 @@ async def get_websocket_stats():
 # RabbitMQ'dan gelen anomali bildirimlerini dinlemek için task
 async def listen_for_anomalies():
     """RabbitMQ'dan anomali bildirimlerini dinler ve WebSocket üzerinden yayınlar"""
+    logger.info("Anomali dinleme görevi başlatıldı")
+    # Başlangıçta RabbitMQ bağlantısının hazır olması için bekle
+    await asyncio.sleep(5)
+    
     while True:
         try:
-            # Anomali kuyruğundan mesaj al
+            # Anomali bildirimlerini doğrudan RabbitMQ'dan al
             try:
-                message = await rabbitmq.get_message("anomaly_notifications")
-                if message:
-                    # WebSocket üzerinden yayınla
-                    await manager.broadcast({
-                        "type": "new_anomaly",
-                        "data": message,
-                        "timestamp": datetime.utcnow().isoformat()
-                    }, "anomalies")
-                    
-                    # Harita verisi güncelleme sinyali
-                    await manager.broadcast({
-                        "type": "map_update_needed",
-                        "source": "anomaly",
-                        "parameter": message.get("parameter"),
-                        "timestamp": datetime.utcnow().isoformat()
-                    }, "map_data")
+                # RabbitMQ bağlantısı ve kuyruk kontrolü
+                if not rabbitmq.connection or not rabbitmq.channel:
+                    logger.warning("RabbitMQ bağlantısı hazır değil. Yeniden denenecek...")
+                    await asyncio.sleep(5)
+                    continue
+                
+                # Kuyruklar hazır mı kontrol et
+                if "anomaly_notifications" not in rabbitmq.queues:
+                    logger.warning("Anomali kuyruğu bulunamadı. Yeniden denenecek...")
+                    # Kuyrukları yeniden oluşturmayı dene
+                    try:
+                        await rabbitmq.setup_exchanges_and_queues()
+                    except Exception as e:
+                        logger.error(f"Kuyruklar oluşturulurken hata: {str(e)}")
+                    await asyncio.sleep(5)
+                    continue
+                
+                # Kuyruk nesnesini al
+                queue = rabbitmq.queues["anomaly_notifications"]
+                
+                # Mesaj alma işlemini güvenli bir şekilde yap
+                try:
+                    # aio_pika kütüphanesini doğrudan kullan
+                    message = await queue.get(fail=False)
+                    if message:
+                        # Mesajı ack'le
+                        await message.ack()
+                        
+                        # Mesaj içeriğini parse et
+                        message_body = message.body.decode()
+                        data = json.loads(message_body)
+                        
+                        # WebSocket üzerinden yayınla (ObjectId'leri string'e dönüştür)
+                        message_json = json.dumps(data, default=lambda o: str(o) if isinstance(o, ObjectId) else o)
+                        parsed_data = json.loads(message_json)
+                        
+                        # WebSocket üzerinden yayınla
+                        await manager.broadcast({
+                            "type": "new_anomaly",
+                            "data": parsed_data,
+                            "timestamp": datetime.utcnow().isoformat()
+                        }, "anomalies")
+                        
+                        # Harita verisi güncelleme sinyali
+                        await manager.broadcast({
+                            "type": "map_update_needed",
+                            "source": "anomaly",
+                            "parameter": data.get("parameter"),
+                            "timestamp": datetime.utcnow().isoformat()
+                        }, "map_data")
+                        
+                        logger.info(f"Anomali mesajı WebSocket üzerinden yayınlandı: {data.get('parameter')}")
+                except Exception as e:
+                    logger.error(f"Mesaj alınırken/işlenirken hata: {str(e)}")
             except Exception as e:
                 logger.error(f"Anomali mesajı alınırken hata: {str(e)}")
             
