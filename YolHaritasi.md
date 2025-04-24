@@ -72,18 +72,18 @@
 - [ ] WebSocket veya SSE ile gerçek zamanlı veri alma
 - [ ] Veri işleme ve görselleştirme
 
-### 5. Test Scriptleri Geliştirme 🔴
+### 5. Test Scriptleri Geliştirme ✅
 
 #### Manuel Veri Girişi Script'i:
-- [ ] Bash script oluşturma (`manual-input.sh`)
-- [ ] API ile iletişim kurma
-- [ ] Parametreleri doğrulama ve işleme
+- [x] Bash script oluşturma (`manual-input.sh`)
+- [x] API ile iletişim kurma
+- [x] Parametreleri doğrulama ve işleme
 
 #### Otomatik Test Script'i:
-- [ ] Bash script oluşturma (`auto-test.sh`)
-- [ ] Rastgele konum ve kirlilik değerleri oluşturma
-- [ ] Anomali senaryoları oluşturma
-- [ ] İstek oranı ve çalışma süresi kontrolleri
+- [x] Bash script oluşturma (`auto-test.sh`)
+- [x] Rastgele konum ve kirlilik değerleri oluşturma
+- [x] Anomali senaryoları oluşturma
+- [x] İstek oranı ve çalışma süresi kontrolleri
 
 ### 6. Sistemin Entegrasyonu ve Testleri 🟡
 
@@ -145,6 +145,11 @@
 - [x] MongoDB, RabbitMQ ve Backend servisleri için Docker Compose
 - [x] Volume yapılandırması (veri kalıcılığı)
 - [x] Ağ yapılandırması ve port eşlemeleri
+
+### Test Scriptleri:
+- [x] Manuel mesaj gönderme scriptleri (test_send_anomaly.py, test_send_async.py)
+- [x] Otomatik dinleyici scriptleri (test_listen_anomaly.py, test_async_listener.py)
+- [x] RabbitMQ bağlantı ve mesaj alışverişi testleri
 
 ## Sonraki Adımlar
 

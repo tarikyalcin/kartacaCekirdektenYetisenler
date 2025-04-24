@@ -6,6 +6,7 @@ from typing import Callable, Dict, Any, Optional
 from app.config import settings
 from datetime import datetime
 from bson import ObjectId
+from aio_pika import connect_robust, Message, ExchangeType
 
 logger = logging.getLogger(__name__)
 
@@ -30,6 +31,7 @@ class RabbitMQ:
         self.connection = None
         self.channel = None
         self.exchange = None
+        self.queues = {}
         self.max_retries = 5
         self.retry_delay = 5  # saniye
     
@@ -37,94 +39,135 @@ class RabbitMQ:
         """
         RabbitMQ'ya bağlanır, bağlantıyı ve kanalı oluşturur
         """
-        rabbitmq_url = settings.RABBITMQ_URL
-        
-        for attempt in range(self.max_retries):
-            try:
-                logger.info(f"RabbitMQ bağlantısı kuruluyor: {rabbitmq_url}")
-                self.connection = await aio_pika.connect_robust(rabbitmq_url)
-                self.channel = await self.connection.channel()
-                self.exchange = await self.channel.declare_exchange(
-                    "air_quality_exchange", 
-                    aio_pika.ExchangeType.TOPIC,
-                    durable=True
-                )
-                logger.info("RabbitMQ bağlantısı başarıyla kuruldu")
-                return
-            except Exception as e:
-                logger.warning(f"RabbitMQ bağlantısı kurulamadı, {self.retry_delay} saniye sonra yeniden deneniyor. Deneme: {attempt+1}/{self.max_retries}. Hata: {str(e)}")
-                if attempt == self.max_retries - 1:
-                    # Son denemede de başarısız olursa hata fırlat
-                    logger.error(f"RabbitMQ bağlantısı {self.max_retries} denemeden sonra başarısız oldu: {str(e)}")
-                    raise
-                await asyncio.sleep(self.retry_delay)
+        try:
+            # Bağlantı URL'si oluştur
+            connection_url = f"amqp://{settings.RABBITMQ_USER}:{settings.RABBITMQ_PASS}@{settings.RABBITMQ_HOST}:{settings.RABBITMQ_PORT}/{settings.RABBITMQ_VHOST}"
+            
+            # Bağlantı kur
+            self.connection = await connect_robust(connection_url)
+            
+            # Kanal oluştur
+            self.channel = await self.connection.channel()
+            
+            # Exchange oluştur (topic tipinde)
+            self.exchange = await self.channel.declare_exchange(
+                "air_quality_exchange", ExchangeType.TOPIC, durable=True
+            )
+            
+            logger.info(f"RabbitMQ bağlantısı kuruldu: {settings.RABBITMQ_HOST}:{settings.RABBITMQ_PORT}")
+            
+        except Exception as e:
+            logger.error(f"RabbitMQ bağlantısı kurulamadı: {str(e)}")
+            self.connection = None
+            self.channel = None
+            self.exchange = None
+            raise
     
     async def setup_queues(self):
         """
         Gerekli kuyrukları ve binding'leri oluşturur
         """
-        if not self.channel:
-            raise ValueError("Önce RabbitMQ'ya bağlanmalısınız")
+        if not self.channel or not self.exchange:
+            raise Exception("RabbitMQ bağlantısı kurulmadan kuyruklar oluşturulamaz")
         
-        try:
-            # Ham veri kuyruğu
-            raw_queue = await self.channel.declare_queue("raw_data", durable=True)
-            await raw_queue.bind(self.exchange, "data.raw")
-            
-            # İşlenmiş veri kuyruğu
-            processed_queue = await self.channel.declare_queue("processed_data", durable=True)
-            await processed_queue.bind(self.exchange, "data.processed")
-            
-            # Anomali bildirimi kuyruğu
-            notification_queue = await self.channel.declare_queue("anomaly_notifications", durable=True)
-            await notification_queue.bind(self.exchange, "notification.anomaly")
-            
-            logger.info("RabbitMQ kuyrukları başarıyla oluşturuldu")
-        except Exception as e:
-            logger.error(f"RabbitMQ kuyrukları oluşturulurken hata: {str(e)}")
-            raise
+        # Ham veri kuyruğu
+        raw_data_queue = await self.channel.declare_queue(
+            "raw_data", durable=True
+        )
+        await raw_data_queue.bind(self.exchange, "data.raw")
+        self.queues["raw_data"] = raw_data_queue
+        logger.info("RabbitMQ raw_data kuyruğu oluşturuldu")
+        
+        # İşlenmiş veri kuyruğu
+        processed_data_queue = await self.channel.declare_queue(
+            "processed_data", durable=True
+        )
+        await processed_data_queue.bind(self.exchange, "data.processed")
+        self.queues["processed_data"] = processed_data_queue
+        logger.info("RabbitMQ processed_data kuyruğu oluşturuldu")
+        
+        # Anomali bildirimleri kuyruğu
+        anomaly_queue = await self.channel.declare_queue(
+            "anomaly_notifications", durable=True
+        )
+        await anomaly_queue.bind(self.exchange, "anomaly.#")
+        self.queues["anomaly_notifications"] = anomaly_queue
+        logger.info("RabbitMQ anomaly_notifications kuyruğu oluşturuldu")
     
-    async def publish(self, routing_key: str, message: Dict[str, Any]):
+    async def publish(self, routing_key: str, data: Dict[str, Any]):
         """
-        Belirtilen routing key ile bir mesaj yayınlar
+        Exchange'e mesaj yayınlar.
         
         Args:
-            routing_key (str): Mesajın yönlendirileceği routing key
-            message (Dict[str, Any]): Yayınlanacak mesaj içeriği
+            routing_key (str): Yönlendirme anahtarı
+            data (Dict[str, Any]): Yayınlanacak veri
         """
         if not self.exchange:
-            raise ValueError("Önce RabbitMQ'ya bağlanmalısınız")
+            raise Exception("RabbitMQ bağlantısı kurulmadan mesaj yayınlanamaz")
         
+        # Veriyi JSON formatına dönüştür
+        message_body = json.dumps(data, cls=CustomJSONEncoder).encode()
+        
+        # Mesaj oluştur
+        message = Message(
+            message_body,
+            content_type="application/json",
+            timestamp=datetime.utcnow().timestamp(),
+            headers={"source": "api"}
+        )
+        
+        # Mesajı yayınla
+        await self.exchange.publish(message, routing_key=routing_key)
+        logger.debug(f"Mesaj yayınlandı: {routing_key}")
+    
+    async def get_message(self, queue_name: str) -> Optional[Dict[str, Any]]:
+        """
+        Belirtilen kuyruktan bir mesaj alır.
+        
+        Args:
+            queue_name (str): Mesajın alınacağı kuyruk adı
+            
+        Returns:
+            Optional[Dict[str, Any]]: Alınan mesaj, kuyruk boşsa None
+        """
+        if not self.channel or queue_name not in self.queues:
+            raise Exception(f"RabbitMQ {queue_name} kuyruğu bulunamadı")
+        
+        # Kuyruktan mesaj al
         try:
-            await self.exchange.publish(
-                aio_pika.Message(
-                    body=json.dumps(message, cls=CustomJSONEncoder).encode(),
-                    delivery_mode=aio_pika.DeliveryMode.PERSISTENT
-                ),
-                routing_key=routing_key
-            )
+            message = await self.queues[queue_name].get()
+            
+            if message:
+                try:
+                    # Mesajı işaretleme (acknowledgment)
+                    await message.ack()
+                    
+                    # Mesaj içeriğini JSON olarak çözümle
+                    message_body = message.body.decode()
+                    data = json.loads(message_body)
+                    return data
+                except Exception as e:
+                    logger.error(f"Mesaj işlenirken hata: {str(e)}")
+                    await message.nack(requeue=True)  # Hata durumunda mesajı kuyruğa geri koy
         except Exception as e:
-            logger.error(f"Mesaj yayınlanırken hata: {str(e)}")
-            raise
+            logger.error(f"Mesaj alınırken hata: {str(e)}")
+            
+        return None
     
     async def consume(self, queue_name: str, callback):
         """
-        Belirtilen kuyruktan mesaj tüketir
+        Belirtilen kuyruktan mesajları tüketmek için bir tüketici başlatır.
         
         Args:
-            queue_name (str): Tüketilecek kuyruğun adı
-            callback (Callable): Mesaj alındığında çağrılacak fonksiyon
+            queue_name (str): Mesajların tüketileceği kuyruk adı
+            callback: Mesaj alındığında çağrılacak fonksiyon
         """
-        if not self.channel:
-            raise ValueError("Önce RabbitMQ'ya bağlanmalısınız")
+        if not self.channel or queue_name not in self.queues:
+            raise Exception(f"RabbitMQ {queue_name} kuyruğu bulunamadı")
         
-        try:
-            queue = await self.channel.get_queue(queue_name)
-            await queue.consume(callback)
-            logger.info(f"'{queue_name}' kuyruğundan tüketim başlatıldı")
-        except Exception as e:
-            logger.error(f"Mesaj tüketimi başlatılırken hata: {str(e)}")
-            raise
+        # Tüketme işlemi başlat
+        await self.queues[queue_name].consume(callback)
+        logger.info(f"RabbitMQ {queue_name} kuyruğundan tüketim başladı")
     
     async def close(self):
         """
@@ -135,6 +178,7 @@ class RabbitMQ:
             self.connection = None
             self.channel = None
             self.exchange = None
+            self.queues = {}
             logger.info("RabbitMQ bağlantısı kapatıldı")
 
 # Singleton instance

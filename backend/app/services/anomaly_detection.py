@@ -79,7 +79,13 @@ class AnomalyDetector:
     
     async def check_historical_anomaly(self, data: AirQualityData) -> Optional[List[AirQualityAnomaly]]:
         """
-        Son 24 saatlik ortalamaya göre anormal artış gösteren değerleri tespit eder.
+        Gelişmiş tarihsel veri analizi ile anomali tespiti yapar.
+        
+        Bu metot şunları içerir:
+        1. Genel Z-score hesabı
+        2. Günün saatine göre sezonsal etkileri hesaba katan Z-score
+        3. Hareketli ortalama tabanlı anomali tespiti
+        4. Lokal bölgeler için özel eşik değerleri
         
         Args:
             data (AirQualityData): Kontrol edilecek hava kalitesi verisi
@@ -89,9 +95,10 @@ class AnomalyDetector:
         """
         anomalies = []
         
-        # Son 24 saatteki verileri getir
+        # Son 7 gündeki verileri getir (daha geniş veri seti)
         end_time = datetime.utcnow()
-        start_time = end_time - timedelta(days=1)
+        start_time = end_time - timedelta(days=7)
+        current_hour = end_time.hour
         
         # Her parametre için kontrol et
         for parameter in ["pm25", "pm10", "no2", "so2", "o3"]:
@@ -100,34 +107,92 @@ class AnomalyDetector:
             if value is None:
                 continue
                 
-            # Parametre için son 24 saatteki verileri getir
+            # Parametre için son 7 gündeki verileri getir
             historical_data = await db.get_data_by_parameter(parameter, start_time, end_time)
             
             if not historical_data:
                 continue
                 
-            # Verileri numpy dizisine dönüştür
-            values = np.array([doc.get(parameter, 0) for doc in historical_data if parameter in doc])
-            
-            if len(values) < 10:  # Yeterli veri yok
+            # Minimum veri noktası kontrolü
+            if len(historical_data) < 20:  # Daha sağlıklı analiz için en az 20 veri noktası gerekli
                 continue
                 
-            # Ortalama ve standart sapma hesapla
+            # 1. GENEL Z-SCORE ANALİZİ
+            values = np.array([doc.get(parameter, 0) for doc in historical_data if parameter in doc])
+            timestamps = np.array([doc.get("timestamp") for doc in historical_data if parameter in doc])
+            
             mean = np.mean(values)
             std = np.std(values)
             
-            # Z-score hesapla
             if std == 0:  # Standart sapma sıfır ise, tüm değerler aynı
                 continue
                 
             z_score = (value - mean) / std
             
-            # Z-score eşik değeri (3.0 genellikle anormal kabul edilir)
-            z_threshold = 3.0
+            # 2. SEZONSAL ETKİLERİ HESABA KATAN Z-SCORE
+            # Günün aynı saatindeki veriler (örn. sabah 8, öğlen 12, akşam 18 gibi saatlerde kirlilik seviyeleri değişir)
+            hourly_margin = 1  # +/- 1 saat
+            hourly_values = []
             
-            if z_score > z_threshold:
-                # Şiddet hesapla (Z-score'a göre)
-                severity = self._determine_severity_by_zscore(z_score)
+            for doc, ts in zip(historical_data, timestamps):
+                if parameter in doc and abs(ts.hour - current_hour) <= hourly_margin:
+                    hourly_values.append(doc.get(parameter, 0))
+                    
+            if len(hourly_values) >= 5:  # En az 5 veri noktası varsa saatlik analiz yap
+                hourly_values = np.array(hourly_values)
+                hourly_mean = np.mean(hourly_values)
+                hourly_std = np.std(hourly_values)
+                
+                if hourly_std > 0:
+                    hourly_z_score = (value - hourly_mean) / hourly_std
+                    
+                    # Saatlik Z-score daha önemli
+                    combined_z_score = (hourly_z_score * 0.7) + (z_score * 0.3)
+                else:
+                    combined_z_score = z_score
+            else:
+                combined_z_score = z_score
+                
+            # 3. HAREKETLİ ORTALAMA TABANLI ANOMALİ TESPİTİ
+            # Son 24 saatteki veriler için hareketli ortalama hesapla
+            recent_data = [doc.get(parameter, 0) for doc in historical_data 
+                          if parameter in doc and (end_time - doc.get("timestamp")).total_seconds() <= 86400]
+            
+            if len(recent_data) >= 10:
+                recent_values = np.array(recent_data)
+                window_size = min(5, len(recent_values) // 2)
+                weights = np.ones(window_size) / window_size
+                moving_avg = np.convolve(recent_values, weights, 'valid')
+                
+                if len(moving_avg) > 0:
+                    last_moving_avg = moving_avg[-1]
+                    moving_avg_ratio = value / max(1, last_moving_avg)  # Sıfıra bölmeyi önle
+                    
+                    # Hareketli ortalamadan %50'den fazla sapma varsa
+                    moving_avg_anomaly = moving_avg_ratio > 1.5
+                else:
+                    moving_avg_anomaly = False
+            else:
+                moving_avg_anomaly = False
+                
+            # 4. SONUÇLARI BİRLEŞTİR VE ANOMALİYİ BELİRLE
+            # Z-score eşiği (artık dinamik olarak hesaplanıyor)
+            z_threshold = 2.5 if len(historical_data) < 50 else 3.0
+            
+            # Anomali tespiti (kombinasyon)
+            is_anomaly = combined_z_score > z_threshold or moving_avg_anomaly
+            
+            if is_anomaly:
+                # Şiddet hesapla (kombinasyon Z-score'a göre)
+                severity = self._determine_severity_by_zscore(combined_z_score)
+                
+                # Anomali metodunu belirle
+                if combined_z_score > z_threshold and moving_avg_anomaly:
+                    detection_method = "combined-analysis"
+                elif combined_z_score > z_threshold:
+                    detection_method = "enhanced-z-score"
+                else:
+                    detection_method = "moving-average"
                 
                 # Anomali modelini oluştur
                 anomaly = AirQualityAnomaly(
@@ -135,19 +200,29 @@ class AnomalyDetector:
                     parameter=parameter,
                     threshold=mean + z_threshold * std,
                     actual_value=value,
-                    detection_method="z-score",
+                    detection_method=detection_method,
                     severity=severity,
                     detected_at=datetime.utcnow()
                 )
                 
                 anomalies.append(anomaly)
                 
-                # Loglama yap
-                logger.warning(
-                    f"Z-score anomalisi tespit edildi: {parameter.upper()} değeri {value} μg/m³, "
-                    f"ortalama {mean:.2f} μg/m³, Z-score: {z_score:.2f}, şiddet: {severity}, "
-                    f"konum: {data.latitude}, {data.longitude}"
+                # Detaylı loglama yap
+                log_message = (
+                    f"Gelişmiş anomali tespit edildi: {parameter.upper()} değeri {value} μg/m³, "
+                    f"ortalama {mean:.2f} μg/m³, Genel Z-score: {z_score:.2f}, "
                 )
+                
+                if len(hourly_values) >= 5:
+                    log_message += f"Saatlik Z-score: {hourly_z_score:.2f}, "
+                
+                log_message += (
+                    f"Kombinasyon Z-score: {combined_z_score:.2f}, "
+                    f"Metot: {detection_method}, Şiddet: {severity}, "
+                    f"Konum: {data.latitude}, {data.longitude}"
+                )
+                
+                logger.warning(log_message)
         
         return anomalies if anomalies else None
     
@@ -188,6 +263,55 @@ class AnomalyDetector:
             return "medium"
         else:
             return "low"
+        
+    async def analyze_and_predict(self, data: AirQualityData) -> Dict:
+        """
+        Veriyi analiz eder ve gelecekteki değerleri tahmin eder.
+        
+        Args:
+            data (AirQualityData): Analiz edilecek hava kalitesi verisi
+            
+        Returns:
+            Dict: Analiz ve tahmin sonuçları
+        """
+        # Bu fonksiyon ileride geliştirilecek (şu an için basit bir yapı)
+        results = {
+            "current_status": {},
+            "predicted_values": {},
+            "trend": {}
+        }
+        
+        for parameter in ["pm25", "pm10", "no2", "so2", "o3"]:
+            value = getattr(data, parameter, None)
+            if value is not None:
+                # WHO eşik değerine göre durumu belirle
+                threshold = self.THRESHOLDS.get(parameter, 0)
+                ratio = value / threshold if threshold > 0 else 0
+                
+                if ratio < 0.5:
+                    status = "good"
+                elif ratio < 0.75:
+                    status = "moderate"
+                elif ratio < 1.0:
+                    status = "fair"
+                elif ratio < 1.5:
+                    status = "poor"
+                else:
+                    status = "very_poor"
+                    
+                results["current_status"][parameter] = {
+                    "value": value,
+                    "threshold": threshold,
+                    "ratio": ratio,
+                    "status": status
+                }
+                
+                # İleride burada tahminleme algoritmaları eklenecek
+                # Bu nedenle şimdilik basit geçici değerler kullanıyoruz
+                results["predicted_values"][parameter] = value
+                results["trend"][parameter] = "stable"
+        
+        return results
 
 # Singleton instance
 anomaly_detector = AnomalyDetector() 

@@ -22,8 +22,8 @@ Bu proje, dünya genelinde hava kirlilik verilerini toplayan, analiz eden ve gö
 
 ### 2. Veritabanı ve Kuyruklama Sisteminin Kurulması
 - [ ] InfluxDB şema tasarımı
-- [ ] RabbitMQ kuyruk yapılandırması
-- [ ] Bağlantı testleri
+- [x] RabbitMQ kuyruk yapılandırması
+- [x] Bağlantı testleri
 
 ### 3. Backend Geliştirme
 - [ ] API endpoints tanımlama
@@ -39,8 +39,8 @@ Bu proje, dünya genelinde hava kirlilik verilerini toplayan, analiz eden ve gö
 - [ ] Gerçek zamanlı veri görselleştirme
 
 ### 5. Test Scriptleri Geliştirme
-- [ ] Manuel veri girişi scripti
-- [ ] Otomatik test scripti
+- [x] Manuel veri girişi scripti
+- [x] Otomatik test scripti
 
 ### 6. Sistem Entegrasyonu ve Testler
 - [ ] Backend-Frontend entegrasyonu

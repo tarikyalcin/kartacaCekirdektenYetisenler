@@ -7,6 +7,7 @@ from app.services.database import db
 from app.services.rabbitmq import rabbitmq
 from app.services.worker import worker
 from app.api.router import router as api_router
+from app.api.websocket import websocket_router
 
 # Loglama yapılandırması
 logging.basicConfig(
@@ -128,6 +129,9 @@ async def health_check():
 
 # API router'ını ekle
 app.include_router(api_router, prefix="/api")
+
+# WebSocket router'ını ekle
+app.include_router(websocket_router)
 
 
 if __name__ == "__main__":
