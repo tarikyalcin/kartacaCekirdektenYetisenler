@@ -48,6 +48,16 @@ services:
       - RABBITMQ_VHOST=/
       - DEBUG=true
     restart: on-failure:3
+    
+  # Frontend - React uygulaması
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:80"  # Nginx ile 80 portunda sunulacak
+    depends_on:
+      - backend
+    restart: on-failure:3
 
 volumes:
   rabbitmq-data:
