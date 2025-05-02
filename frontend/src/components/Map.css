@@ -1,39 +1,39 @@
 .map-container {
   position: relative;
+  width: 100%;
   height: 500px;
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .map {
-  height: 100%;
   width: 100%;
+  height: 100%;
 }
 
 .map-legend {
   position: absolute;
   bottom: 20px;
   right: 20px;
-  background-color: white;
+  background: white;
   padding: 10px;
-  border-radius: 4px;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  display: flex;
 }
 
 .legend-item {
   display: flex;
   align-items: center;
-  margin-right: 15px;
+  margin: 5px 0;
 }
 
 .legend-color {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  border-radius: 3px;
-  margin-right: 5px;
+  width: 15px;
+  height: 15px;
+  margin-right: 8px;
+  border-radius: 50%;
 }
 
 .legend-color.good {
@@ -49,7 +49,7 @@
 }
 
 .legend-color.very-unhealthy {
-  background-color: #ff6b6b;
+  background-color: #ff4500;
 }
 
 .legend-color.hazardous {
@@ -58,7 +58,7 @@
 
 .legend-label {
   font-size: 12px;
-  color: #333;
+  color: #666;
 }
 
 /* Popup Stilleri */
@@ -67,47 +67,151 @@
 }
 
 .map-popup {
-  min-width: 200px;
+  font-family: 'Poppins', sans-serif;
+  max-width: 250px;
 }
 
 .popup-header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
   margin-bottom: 8px;
+  padding-bottom: 4px;
 }
 
 .popup-header h3 {
-  margin: 0;
   font-size: 16px;
+  margin: 0;
+  color: #333;
 }
 
 .popup-status {
-  padding: 2px 6px;
-  border-radius: 10px;
   font-size: 12px;
-  color: white;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .popup-status.good {
-  background-color: #28a745;
+  background-color: rgba(40, 167, 69, 0.15);
+  color: #28a745;
 }
 
 .popup-status.moderate {
-  background-color: #bfd200;
+  background-color: rgba(191, 210, 0, 0.15);
+  color: #8a9700;
 }
 
 .popup-status.unhealthy {
-  background-color: #ffa500;
+  background-color: rgba(255, 165, 0, 0.15);
+  color: #ff8c00;
 }
 
-.popup-status.danger {
-  background-color: #dc3545;
+.popup-status.very-unhealthy {
+  background-color: rgba(255, 69, 0, 0.15);
+  color: #ff4500;
+}
+
+.popup-status.hazardous {
+  background-color: rgba(220, 53, 69, 0.15);
+  color: #dc3545;
+}
+
+.popup-status.alert {
+  background-color: rgba(220, 53, 69, 0.2);
+  color: #dc3545;
+  animation: blink 1s infinite;
+}
+
+.popup-content {
+  font-size: 14px;
+  color: #666;
 }
 
 .popup-content p {
-  margin: 5px 0;
-  font-size: 13px;
+  margin: 4px 0;
+}
+
+/* Anomali göstergeleri için stiller */
+.pulsing-icon {
+  position: relative;
+}
+
+.pulse-icon {
+  width: 20px;
+  height: 20px;
+  background-color: rgba(220, 53, 69, 0.7);
+  border-radius: 50%;
+  position: relative;
+  animation: pulse 1.5s infinite;
+}
+
+.pulse-icon::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(220, 53, 69, 0.4);
+  border-radius: 50%;
+  z-index: -1;
+  animation: pulseRing 2s infinite;
+}
+
+.pulse-icon.threshold_exceeded {
+  background-color: rgba(220, 53, 69, 0.7);
+}
+
+.pulse-icon.sudden_increase {
+  background-color: rgba(255, 165, 0, 0.7);
+}
+
+.pulse-icon.who_limit_exceeded {
+  background-color: rgba(128, 0, 128, 0.7);
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+  70% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* Anomali popup stilleri */
+.map-popup.anomaly .popup-header {
+  border-bottom-color: rgba(220, 53, 69, 0.3);
+}
+
+.map-popup.anomaly .popup-content strong {
+  color: #333;
 }
 
 @media (max-width: 768px) {

@@ -1,0 +1,50 @@
+[
+  {
+    "_id": "68147e100c73bfa5aa3b0200",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.9054,
+        41.2658
+      ]
+    },
+    "parameter": "pm25",
+    "value": 79.7,
+    "type": "who_limit_exceeded",
+    "detected_at": "2025-05-02T11:10:56.883000",
+    "city": "Erzurum",
+    "threshold": 15
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0201",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        37.3212,
+        40.7245
+      ]
+    },
+    "parameter": "pm25",
+    "value": 121.2,
+    "type": "who_limit_exceeded",
+    "detected_at": "2025-05-02T11:10:56.883000",
+    "city": "Mardin",
+    "threshold": 15
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0202",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        40.7667,
+        29.9167
+      ]
+    },
+    "parameter": "pm25",
+    "value": 95.1,
+    "type": "threshold_exceeded",
+    "detected_at": "2025-05-02T11:10:56.883000",
+    "city": "Kocaeli",
+    "threshold": 50
+  }
+]

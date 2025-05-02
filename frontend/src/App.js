@@ -15,22 +15,45 @@ function App() {
     highestValue: '-'
   });
   
+  const [anomalies, setAnomalies] = useState([]);
   const [isLiveMonitoringActive, setIsLiveMonitoringActive] = useState(true);
 
-  // Burada backend API'sinden verileri çekebilirsiniz
+  // İstatistik verilerini ve anomalileri yükle
   useEffect(() => {
-    // Örnek veri çekme işlemi
-    // fetch('/api/dashboard-stats').then(...)
+    const fetchData = async () => {
+      try {
+        // İstatistik verilerini yükle
+        const statsResponse = await fetch('/data/stats.json');
+        const statsData = await statsResponse.json();
+        
+        // Anomali verilerini yükle
+        const anomalyResponse = await fetch('/data/anomalies.json');
+        const anomalyData = await anomalyResponse.json();
+        
+        setStats(statsData);
+        setAnomalies(anomalyData);
+      } catch (error) {
+        console.error('Veri yükleme hatası:', error);
+        // Hata durumunda varsayılan değerleri kullan
+      }
+    };
     
-    // Şimdilik örnek veri kullanıyoruz
-    setStats({
-      totalAlerts: 0,
-      whoLimitExceeded: 0,
-      suddenIncreases: 0,
-      affectedRegions: 0,
-      highestValue: '-'
-    });
-  }, []);
+    fetchData();
+    
+    // Canlı güncellemeler için düzenli olarak verileri yenile
+    if (isLiveMonitoringActive) {
+      const intervalId = setInterval(() => {
+        fetchData();
+      }, 30000); // 30 saniyede bir güncelle
+      
+      return () => clearInterval(intervalId);
+    }
+  }, [isLiveMonitoringActive]);
+  
+  // Canlı izleme durumunu değiştir
+  const toggleLiveMonitoring = () => {
+    setIsLiveMonitoringActive(!isLiveMonitoringActive);
+  };
 
   return (
     <div className="app">
@@ -40,8 +63,13 @@ function App() {
         <p className="subtitle">Dünya genelinde hava kirliliği verilerini gerçek zamanlı olarak izleyin</p>
         
         <div className="live-status">
-          <span className={`status-indicator ${isLiveMonitoringActive ? 'active' : ''}`}></span>
-          <span className="status-text">Canlı İzleme {isLiveMonitoringActive ? 'Aktif' : 'Pasif'}</span>
+          <button 
+            className="live-toggle-btn" 
+            onClick={toggleLiveMonitoring}
+          >
+            <span className={`status-indicator ${isLiveMonitoringActive ? 'active' : ''}`}></span>
+            <span className="status-text">Canlı İzleme {isLiveMonitoringActive ? 'Aktif' : 'Pasif'}</span>
+          </button>
         </div>
         
         <Dashboard stats={stats} />
@@ -53,7 +81,7 @@ function App() {
           </div>
           
           <div className="side-panel">
-            <AnomalyAlerts />
+            <AnomalyAlerts anomalies={anomalies} />
           </div>
         </div>
         

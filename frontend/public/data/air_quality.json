@@ -1,0 +1,1802 @@
+[
+  {
+    "_id": "68147e100c73bfa5aa3b01f7",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        41.0082,
+        28.9784
+      ]
+    },
+    "pm25": 41.8,
+    "pm10": 56.4,
+    "no2": 49.4,
+    "so2": 21.6,
+    "o3": 44.3,
+    "status": "moderate",
+    "city": "\u0130stanbul",
+    "timestamp": "2025-05-02T11:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01f8",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.9334,
+        32.8597
+      ]
+    },
+    "pm25": 17.6,
+    "pm10": 26.9,
+    "no2": 31.2,
+    "so2": 11.2,
+    "o3": 59.4,
+    "status": "moderate",
+    "city": "Ankara",
+    "timestamp": "2025-05-02T11:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01f9",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        37.9667,
+        34.6792
+      ]
+    },
+    "pm25": 21.8,
+    "pm10": 37.3,
+    "no2": 45.9,
+    "so2": 14.1,
+    "o3": 62.5,
+    "status": "moderate",
+    "city": "Ni\u011fde",
+    "timestamp": "2025-05-02T11:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01fa",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        40.65,
+        29.2667
+      ]
+    },
+    "pm25": 19.4,
+    "pm10": 30.3,
+    "no2": 47.9,
+    "so2": 10.6,
+    "o3": 78.0,
+    "status": "moderate",
+    "city": "Yalova",
+    "timestamp": "2025-05-02T11:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01fb",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.42,
+        29.9833
+      ]
+    },
+    "pm25": 45.9,
+    "pm10": 78.4,
+    "no2": 41.7,
+    "so2": 3.4,
+    "o3": 62.1,
+    "status": "moderate",
+    "city": "K\u00fctahya",
+    "timestamp": "2025-05-02T11:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01fc",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.9054,
+        41.2658
+      ]
+    },
+    "pm25": 79.7,
+    "pm10": 126.0,
+    "no2": 44.7,
+    "so2": 11.7,
+    "o3": 48.3,
+    "status": "unhealthy",
+    "city": "Erzurum",
+    "timestamp": "2025-05-02T11:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01fd",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        41.0201,
+        40.5234
+      ]
+    },
+    "pm25": 20.5,
+    "pm10": 39.8,
+    "no2": 13.7,
+    "so2": 22.3,
+    "o3": 35.3,
+    "status": "moderate",
+    "city": "Rize",
+    "timestamp": "2025-05-02T11:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01fe",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        37.3212,
+        40.7245
+      ]
+    },
+    "pm25": 121.2,
+    "pm10": 159.1,
+    "no2": 22.4,
+    "so2": 2.9,
+    "o3": 77.5,
+    "status": "very-unhealthy",
+    "city": "Mardin",
+    "timestamp": "2025-05-02T11:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01ff",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        40.7667,
+        29.9167
+      ]
+    },
+    "pm25": 95.1,
+    "pm10": 140.1,
+    "no2": 11.3,
+    "so2": 16.7,
+    "o3": 29.8,
+    "status": "unhealthy",
+    "city": "Kocaeli",
+    "timestamp": "2025-05-02T11:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b017e",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        40.65,
+        29.2667
+      ]
+    },
+    "pm25": 17.7,
+    "pm10": 31.6,
+    "no2": 18.5,
+    "so2": 22.4,
+    "o3": 85.6,
+    "status": "moderate",
+    "city": "Yalova",
+    "timestamp": "2025-05-02T10:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0196",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.42,
+        29.9833
+      ]
+    },
+    "pm25": 42.8,
+    "pm10": 71.1,
+    "no2": 11.7,
+    "so2": 8.1,
+    "o3": 76.7,
+    "status": "moderate",
+    "city": "K\u00fctahya",
+    "timestamp": "2025-05-02T10:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01ae",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.9054,
+        41.2658
+      ]
+    },
+    "pm25": 76.8,
+    "pm10": 118.0,
+    "no2": 27.2,
+    "so2": 7.5,
+    "o3": 76.7,
+    "status": "unhealthy",
+    "city": "Erzurum",
+    "timestamp": "2025-05-02T10:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01c6",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        41.0201,
+        40.5234
+      ]
+    },
+    "pm25": 25.6,
+    "pm10": 43.7,
+    "no2": 23.7,
+    "so2": 6.2,
+    "o3": 71.0,
+    "status": "moderate",
+    "city": "Rize",
+    "timestamp": "2025-05-02T10:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01de",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        37.3212,
+        40.7245
+      ]
+    },
+    "pm25": 128.8,
+    "pm10": 152.6,
+    "no2": 48.9,
+    "so2": 16.2,
+    "o3": 65.3,
+    "status": "very-unhealthy",
+    "city": "Mardin",
+    "timestamp": "2025-05-02T10:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01f6",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        40.7667,
+        29.9167
+      ]
+    },
+    "pm25": 92.7,
+    "pm10": 142.2,
+    "no2": 44.4,
+    "so2": 6.5,
+    "o3": 42.9,
+    "status": "unhealthy",
+    "city": "Kocaeli",
+    "timestamp": "2025-05-02T10:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0136",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        41.0082,
+        28.9784
+      ]
+    },
+    "pm25": 31.9,
+    "pm10": 64.6,
+    "no2": 19.5,
+    "so2": 12.2,
+    "o3": 67.8,
+    "status": "moderate",
+    "city": "\u0130stanbul",
+    "timestamp": "2025-05-02T10:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b014e",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.9334,
+        32.8597
+      ]
+    },
+    "pm25": 12.5,
+    "pm10": 24.5,
+    "no2": 16.5,
+    "so2": 24.8,
+    "o3": 30.4,
+    "status": "good",
+    "city": "Ankara",
+    "timestamp": "2025-05-02T10:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0166",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        37.9667,
+        34.6792
+      ]
+    },
+    "pm25": 24.6,
+    "pm10": 32.1,
+    "no2": 25.5,
+    "so2": 15.1,
+    "o3": 34.5,
+    "status": "moderate",
+    "city": "Ni\u011fde",
+    "timestamp": "2025-05-02T10:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b017d",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        40.65,
+        29.2667
+      ]
+    },
+    "pm25": 16.4,
+    "pm10": 33.4,
+    "no2": 12.3,
+    "so2": 2.4,
+    "o3": 42.1,
+    "status": "moderate",
+    "city": "Yalova",
+    "timestamp": "2025-05-02T09:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0195",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.42,
+        29.9833
+      ]
+    },
+    "pm25": 40.2,
+    "pm10": 70.2,
+    "no2": 11.6,
+    "so2": 19.2,
+    "o3": 79.5,
+    "status": "moderate",
+    "city": "K\u00fctahya",
+    "timestamp": "2025-05-02T09:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01ad",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.9054,
+        41.2658
+      ]
+    },
+    "pm25": 81.9,
+    "pm10": 116.3,
+    "no2": 46.4,
+    "so2": 17.5,
+    "o3": 67.1,
+    "status": "unhealthy",
+    "city": "Erzurum",
+    "timestamp": "2025-05-02T09:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01c5",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        41.0201,
+        40.5234
+      ]
+    },
+    "pm25": 29.9,
+    "pm10": 36.6,
+    "no2": 22.8,
+    "so2": 7.3,
+    "o3": 39.3,
+    "status": "moderate",
+    "city": "Rize",
+    "timestamp": "2025-05-02T09:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01dd",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        37.3212,
+        40.7245
+      ]
+    },
+    "pm25": 113.5,
+    "pm10": 159.4,
+    "no2": 47.9,
+    "so2": 12.7,
+    "o3": 44.2,
+    "status": "very-unhealthy",
+    "city": "Mardin",
+    "timestamp": "2025-05-02T09:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01f5",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        40.7667,
+        29.9167
+      ]
+    },
+    "pm25": 99.0,
+    "pm10": 138.2,
+    "no2": 37.3,
+    "so2": 17.2,
+    "o3": 40.3,
+    "status": "unhealthy",
+    "city": "Kocaeli",
+    "timestamp": "2025-05-02T09:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0135",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        41.0082,
+        28.9784
+      ]
+    },
+    "pm25": 37.1,
+    "pm10": 56.5,
+    "no2": 46.0,
+    "so2": 18.1,
+    "o3": 68.6,
+    "status": "moderate",
+    "city": "\u0130stanbul",
+    "timestamp": "2025-05-02T09:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b014d",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.9334,
+        32.8597
+      ]
+    },
+    "pm25": 13.5,
+    "pm10": 21.1,
+    "no2": 39.6,
+    "so2": 17.7,
+    "o3": 61.5,
+    "status": "good",
+    "city": "Ankara",
+    "timestamp": "2025-05-02T09:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0165",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        37.9667,
+        34.6792
+      ]
+    },
+    "pm25": 20.9,
+    "pm10": 34.5,
+    "no2": 16.8,
+    "so2": 8.4,
+    "o3": 85.3,
+    "status": "moderate",
+    "city": "Ni\u011fde",
+    "timestamp": "2025-05-02T09:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b017c",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        40.65,
+        29.2667
+      ]
+    },
+    "pm25": 15.1,
+    "pm10": 32.8,
+    "no2": 27.1,
+    "so2": 24.2,
+    "o3": 59.5,
+    "status": "moderate",
+    "city": "Yalova",
+    "timestamp": "2025-05-02T08:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0194",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.42,
+        29.9833
+      ]
+    },
+    "pm25": 41.2,
+    "pm10": 65.3,
+    "no2": 47.1,
+    "so2": 5.3,
+    "o3": 45.8,
+    "status": "moderate",
+    "city": "K\u00fctahya",
+    "timestamp": "2025-05-02T08:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01ac",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.9054,
+        41.2658
+      ]
+    },
+    "pm25": 93.5,
+    "pm10": 110.3,
+    "no2": 10.8,
+    "so2": 10.6,
+    "o3": 82.9,
+    "status": "unhealthy",
+    "city": "Erzurum",
+    "timestamp": "2025-05-02T08:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01c4",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        41.0201,
+        40.5234
+      ]
+    },
+    "pm25": 29.9,
+    "pm10": 40.8,
+    "no2": 20.0,
+    "so2": 3.3,
+    "o3": 38.6,
+    "status": "moderate",
+    "city": "Rize",
+    "timestamp": "2025-05-02T08:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01dc",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        37.3212,
+        40.7245
+      ]
+    },
+    "pm25": 114.0,
+    "pm10": 154.9,
+    "no2": 47.3,
+    "so2": 2.5,
+    "o3": 46.0,
+    "status": "very-unhealthy",
+    "city": "Mardin",
+    "timestamp": "2025-05-02T08:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01f4",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        40.7667,
+        29.9167
+      ]
+    },
+    "pm25": 103.5,
+    "pm10": 141.1,
+    "no2": 32.2,
+    "so2": 15.9,
+    "o3": 71.3,
+    "status": "very-unhealthy",
+    "city": "Kocaeli",
+    "timestamp": "2025-05-02T08:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0134",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        41.0082,
+        28.9784
+      ]
+    },
+    "pm25": 37.4,
+    "pm10": 62.6,
+    "no2": 16.7,
+    "so2": 11.5,
+    "o3": 85.4,
+    "status": "moderate",
+    "city": "\u0130stanbul",
+    "timestamp": "2025-05-02T08:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b014c",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.9334,
+        32.8597
+      ]
+    },
+    "pm25": 11.1,
+    "pm10": 26.5,
+    "no2": 45.2,
+    "so2": 11.7,
+    "o3": 72.9,
+    "status": "good",
+    "city": "Ankara",
+    "timestamp": "2025-05-02T08:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0164",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        37.9667,
+        34.6792
+      ]
+    },
+    "pm25": 24.9,
+    "pm10": 36.8,
+    "no2": 49.4,
+    "so2": 16.9,
+    "o3": 69.0,
+    "status": "moderate",
+    "city": "Ni\u011fde",
+    "timestamp": "2025-05-02T08:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0193",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.42,
+        29.9833
+      ]
+    },
+    "pm25": 44.9,
+    "pm10": 76.7,
+    "no2": 48.2,
+    "so2": 20.2,
+    "o3": 44.5,
+    "status": "moderate",
+    "city": "K\u00fctahya",
+    "timestamp": "2025-05-02T07:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01ab",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.9054,
+        41.2658
+      ]
+    },
+    "pm25": 76.9,
+    "pm10": 110.2,
+    "no2": 44.0,
+    "so2": 7.0,
+    "o3": 74.8,
+    "status": "unhealthy",
+    "city": "Erzurum",
+    "timestamp": "2025-05-02T07:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01c3",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        41.0201,
+        40.5234
+      ]
+    },
+    "pm25": 20.9,
+    "pm10": 43.9,
+    "no2": 41.1,
+    "so2": 8.2,
+    "o3": 74.7,
+    "status": "moderate",
+    "city": "Rize",
+    "timestamp": "2025-05-02T07:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01db",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        37.3212,
+        40.7245
+      ]
+    },
+    "pm25": 128.6,
+    "pm10": 166.5,
+    "no2": 21.1,
+    "so2": 12.2,
+    "o3": 29.1,
+    "status": "very-unhealthy",
+    "city": "Mardin",
+    "timestamp": "2025-05-02T07:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01f3",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        40.7667,
+        29.9167
+      ]
+    },
+    "pm25": 94.7,
+    "pm10": 138.7,
+    "no2": 39.2,
+    "so2": 17.6,
+    "o3": 72.4,
+    "status": "unhealthy",
+    "city": "Kocaeli",
+    "timestamp": "2025-05-02T07:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0133",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        41.0082,
+        28.9784
+      ]
+    },
+    "pm25": 30.7,
+    "pm10": 55.8,
+    "no2": 41.6,
+    "so2": 17.7,
+    "o3": 40.3,
+    "status": "moderate",
+    "city": "\u0130stanbul",
+    "timestamp": "2025-05-02T07:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b014b",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.9334,
+        32.8597
+      ]
+    },
+    "pm25": 14.9,
+    "pm10": 22.4,
+    "no2": 44.5,
+    "so2": 8.4,
+    "o3": 83.9,
+    "status": "good",
+    "city": "Ankara",
+    "timestamp": "2025-05-02T07:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0163",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        37.9667,
+        34.6792
+      ]
+    },
+    "pm25": 24.0,
+    "pm10": 36.6,
+    "no2": 20.2,
+    "so2": 19.6,
+    "o3": 80.7,
+    "status": "moderate",
+    "city": "Ni\u011fde",
+    "timestamp": "2025-05-02T07:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b017b",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        40.65,
+        29.2667
+      ]
+    },
+    "pm25": 17.2,
+    "pm10": 31.3,
+    "no2": 25.5,
+    "so2": 10.8,
+    "o3": 46.6,
+    "status": "moderate",
+    "city": "Yalova",
+    "timestamp": "2025-05-02T07:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0192",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.42,
+        29.9833
+      ]
+    },
+    "pm25": 42.5,
+    "pm10": 71.3,
+    "no2": 21.4,
+    "so2": 15.7,
+    "o3": 37.8,
+    "status": "moderate",
+    "city": "K\u00fctahya",
+    "timestamp": "2025-05-02T06:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01aa",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.9054,
+        41.2658
+      ]
+    },
+    "pm25": 75.9,
+    "pm10": 115.3,
+    "no2": 31.8,
+    "so2": 10.6,
+    "o3": 65.8,
+    "status": "unhealthy",
+    "city": "Erzurum",
+    "timestamp": "2025-05-02T06:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01c2",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        41.0201,
+        40.5234
+      ]
+    },
+    "pm25": 23.2,
+    "pm10": 38.4,
+    "no2": 24.7,
+    "so2": 21.7,
+    "o3": 37.3,
+    "status": "moderate",
+    "city": "Rize",
+    "timestamp": "2025-05-02T06:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01da",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        37.3212,
+        40.7245
+      ]
+    },
+    "pm25": 117.8,
+    "pm10": 154.4,
+    "no2": 22.8,
+    "so2": 2.6,
+    "o3": 68.6,
+    "status": "very-unhealthy",
+    "city": "Mardin",
+    "timestamp": "2025-05-02T06:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01f2",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        40.7667,
+        29.9167
+      ]
+    },
+    "pm25": 97.9,
+    "pm10": 149.2,
+    "no2": 26.1,
+    "so2": 2.4,
+    "o3": 66.4,
+    "status": "unhealthy",
+    "city": "Kocaeli",
+    "timestamp": "2025-05-02T06:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0132",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        41.0082,
+        28.9784
+      ]
+    },
+    "pm25": 40.1,
+    "pm10": 64.3,
+    "no2": 14.4,
+    "so2": 18.6,
+    "o3": 51.8,
+    "status": "moderate",
+    "city": "\u0130stanbul",
+    "timestamp": "2025-05-02T06:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b014a",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.9334,
+        32.8597
+      ]
+    },
+    "pm25": 12.0,
+    "pm10": 25.0,
+    "no2": 30.0,
+    "so2": 7.6,
+    "o3": 58.5,
+    "status": "good",
+    "city": "Ankara",
+    "timestamp": "2025-05-02T06:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0162",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        37.9667,
+        34.6792
+      ]
+    },
+    "pm25": 20.0,
+    "pm10": 39.5,
+    "no2": 32.5,
+    "so2": 24.1,
+    "o3": 27.4,
+    "status": "moderate",
+    "city": "Ni\u011fde",
+    "timestamp": "2025-05-02T06:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b017a",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        40.65,
+        29.2667
+      ]
+    },
+    "pm25": 21.8,
+    "pm10": 32.2,
+    "no2": 45.5,
+    "so2": 18.4,
+    "o3": 33.6,
+    "status": "moderate",
+    "city": "Yalova",
+    "timestamp": "2025-05-02T06:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0191",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.42,
+        29.9833
+      ]
+    },
+    "pm25": 47.4,
+    "pm10": 67.4,
+    "no2": 39.9,
+    "so2": 19.4,
+    "o3": 29.0,
+    "status": "moderate",
+    "city": "K\u00fctahya",
+    "timestamp": "2025-05-02T05:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01a9",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.9054,
+        41.2658
+      ]
+    },
+    "pm25": 82.0,
+    "pm10": 120.0,
+    "no2": 46.3,
+    "so2": 15.5,
+    "o3": 67.3,
+    "status": "unhealthy",
+    "city": "Erzurum",
+    "timestamp": "2025-05-02T05:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01c1",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        41.0201,
+        40.5234
+      ]
+    },
+    "pm25": 28.4,
+    "pm10": 41.6,
+    "no2": 48.7,
+    "so2": 4.8,
+    "o3": 81.2,
+    "status": "moderate",
+    "city": "Rize",
+    "timestamp": "2025-05-02T05:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01d9",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        37.3212,
+        40.7245
+      ]
+    },
+    "pm25": 111.5,
+    "pm10": 162.8,
+    "no2": 24.3,
+    "so2": 14.0,
+    "o3": 51.7,
+    "status": "very-unhealthy",
+    "city": "Mardin",
+    "timestamp": "2025-05-02T05:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01f1",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        40.7667,
+        29.9167
+      ]
+    },
+    "pm25": 93.8,
+    "pm10": 145.9,
+    "no2": 18.3,
+    "so2": 8.2,
+    "o3": 46.3,
+    "status": "unhealthy",
+    "city": "Kocaeli",
+    "timestamp": "2025-05-02T05:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0131",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        41.0082,
+        28.9784
+      ]
+    },
+    "pm25": 42.1,
+    "pm10": 47.6,
+    "no2": 29.4,
+    "so2": 10.9,
+    "o3": 77.5,
+    "status": "moderate",
+    "city": "\u0130stanbul",
+    "timestamp": "2025-05-02T05:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0149",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.9334,
+        32.8597
+      ]
+    },
+    "pm25": 12.0,
+    "pm10": 24.7,
+    "no2": 39.4,
+    "so2": 4.8,
+    "o3": 63.6,
+    "status": "good",
+    "city": "Ankara",
+    "timestamp": "2025-05-02T05:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0161",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        37.9667,
+        34.6792
+      ]
+    },
+    "pm25": 21.1,
+    "pm10": 36.8,
+    "no2": 29.6,
+    "so2": 8.0,
+    "o3": 29.4,
+    "status": "moderate",
+    "city": "Ni\u011fde",
+    "timestamp": "2025-05-02T05:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0179",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        40.65,
+        29.2667
+      ]
+    },
+    "pm25": 18.0,
+    "pm10": 25.4,
+    "no2": 39.4,
+    "so2": 3.6,
+    "o3": 26.1,
+    "status": "moderate",
+    "city": "Yalova",
+    "timestamp": "2025-05-02T05:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0190",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.42,
+        29.9833
+      ]
+    },
+    "pm25": 48.5,
+    "pm10": 72.7,
+    "no2": 34.2,
+    "so2": 17.7,
+    "o3": 57.9,
+    "status": "moderate",
+    "city": "K\u00fctahya",
+    "timestamp": "2025-05-02T04:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01a8",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.9054,
+        41.2658
+      ]
+    },
+    "pm25": 76.9,
+    "pm10": 121.3,
+    "no2": 44.2,
+    "so2": 18.5,
+    "o3": 75.0,
+    "status": "unhealthy",
+    "city": "Erzurum",
+    "timestamp": "2025-05-02T04:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01c0",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        41.0201,
+        40.5234
+      ]
+    },
+    "pm25": 28.6,
+    "pm10": 35.3,
+    "no2": 18.2,
+    "so2": 2.8,
+    "o3": 60.9,
+    "status": "moderate",
+    "city": "Rize",
+    "timestamp": "2025-05-02T04:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01d8",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        37.3212,
+        40.7245
+      ]
+    },
+    "pm25": 113.7,
+    "pm10": 164.8,
+    "no2": 42.6,
+    "so2": 3.7,
+    "o3": 39.0,
+    "status": "very-unhealthy",
+    "city": "Mardin",
+    "timestamp": "2025-05-02T04:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01f0",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        40.7667,
+        29.9167
+      ]
+    },
+    "pm25": 90.5,
+    "pm10": 131.1,
+    "no2": 48.3,
+    "so2": 23.4,
+    "o3": 48.0,
+    "status": "unhealthy",
+    "city": "Kocaeli",
+    "timestamp": "2025-05-02T04:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0130",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        41.0082,
+        28.9784
+      ]
+    },
+    "pm25": 31.0,
+    "pm10": 61.5,
+    "no2": 46.0,
+    "so2": 14.5,
+    "o3": 54.2,
+    "status": "moderate",
+    "city": "\u0130stanbul",
+    "timestamp": "2025-05-02T04:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0148",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.9334,
+        32.8597
+      ]
+    },
+    "pm25": 16.9,
+    "pm10": 25.8,
+    "no2": 35.5,
+    "so2": 19.1,
+    "o3": 84.1,
+    "status": "moderate",
+    "city": "Ankara",
+    "timestamp": "2025-05-02T04:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0160",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        37.9667,
+        34.6792
+      ]
+    },
+    "pm25": 20.3,
+    "pm10": 31.5,
+    "no2": 10.4,
+    "so2": 12.1,
+    "o3": 56.3,
+    "status": "moderate",
+    "city": "Ni\u011fde",
+    "timestamp": "2025-05-02T04:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0178",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        40.65,
+        29.2667
+      ]
+    },
+    "pm25": 17.0,
+    "pm10": 31.9,
+    "no2": 36.7,
+    "so2": 10.7,
+    "o3": 47.2,
+    "status": "moderate",
+    "city": "Yalova",
+    "timestamp": "2025-05-02T04:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b018f",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.42,
+        29.9833
+      ]
+    },
+    "pm25": 40.9,
+    "pm10": 66.4,
+    "no2": 44.3,
+    "so2": 8.4,
+    "o3": 88.3,
+    "status": "moderate",
+    "city": "K\u00fctahya",
+    "timestamp": "2025-05-02T03:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01a7",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.9054,
+        41.2658
+      ]
+    },
+    "pm25": 87.9,
+    "pm10": 129.4,
+    "no2": 47.9,
+    "so2": 5.9,
+    "o3": 61.4,
+    "status": "unhealthy",
+    "city": "Erzurum",
+    "timestamp": "2025-05-02T03:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01bf",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        41.0201,
+        40.5234
+      ]
+    },
+    "pm25": 22.4,
+    "pm10": 40.9,
+    "no2": 28.9,
+    "so2": 2.4,
+    "o3": 89.3,
+    "status": "moderate",
+    "city": "Rize",
+    "timestamp": "2025-05-02T03:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01d7",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        37.3212,
+        40.7245
+      ]
+    },
+    "pm25": 113.4,
+    "pm10": 154.3,
+    "no2": 23.6,
+    "so2": 4.8,
+    "o3": 41.3,
+    "status": "very-unhealthy",
+    "city": "Mardin",
+    "timestamp": "2025-05-02T03:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01ef",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        40.7667,
+        29.9167
+      ]
+    },
+    "pm25": 92.7,
+    "pm10": 138.5,
+    "no2": 13.0,
+    "so2": 12.6,
+    "o3": 82.1,
+    "status": "unhealthy",
+    "city": "Kocaeli",
+    "timestamp": "2025-05-02T03:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b012f",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        41.0082,
+        28.9784
+      ]
+    },
+    "pm25": 32.6,
+    "pm10": 46.5,
+    "no2": 44.0,
+    "so2": 12.3,
+    "o3": 74.2,
+    "status": "moderate",
+    "city": "\u0130stanbul",
+    "timestamp": "2025-05-02T03:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0147",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.9334,
+        32.8597
+      ]
+    },
+    "pm25": 15.7,
+    "pm10": 30.0,
+    "no2": 13.6,
+    "so2": 19.9,
+    "o3": 85.5,
+    "status": "moderate",
+    "city": "Ankara",
+    "timestamp": "2025-05-02T03:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b015f",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        37.9667,
+        34.6792
+      ]
+    },
+    "pm25": 22.8,
+    "pm10": 31.3,
+    "no2": 36.5,
+    "so2": 2.3,
+    "o3": 71.4,
+    "status": "moderate",
+    "city": "Ni\u011fde",
+    "timestamp": "2025-05-02T03:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0177",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        40.65,
+        29.2667
+      ]
+    },
+    "pm25": 21.7,
+    "pm10": 34.4,
+    "no2": 35.6,
+    "so2": 18.9,
+    "o3": 25.5,
+    "status": "moderate",
+    "city": "Yalova",
+    "timestamp": "2025-05-02T03:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b018e",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.42,
+        29.9833
+      ]
+    },
+    "pm25": 47.9,
+    "pm10": 72.4,
+    "no2": 29.2,
+    "so2": 10.1,
+    "o3": 25.2,
+    "status": "moderate",
+    "city": "K\u00fctahya",
+    "timestamp": "2025-05-02T02:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01a6",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.9054,
+        41.2658
+      ]
+    },
+    "pm25": 95.0,
+    "pm10": 129.0,
+    "no2": 44.5,
+    "so2": 22.0,
+    "o3": 26.0,
+    "status": "unhealthy",
+    "city": "Erzurum",
+    "timestamp": "2025-05-02T02:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01be",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        41.0201,
+        40.5234
+      ]
+    },
+    "pm25": 27.2,
+    "pm10": 43.1,
+    "no2": 20.6,
+    "so2": 10.3,
+    "o3": 74.6,
+    "status": "moderate",
+    "city": "Rize",
+    "timestamp": "2025-05-02T02:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01d6",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        37.3212,
+        40.7245
+      ]
+    },
+    "pm25": 122.4,
+    "pm10": 151.1,
+    "no2": 12.5,
+    "so2": 11.2,
+    "o3": 45.6,
+    "status": "very-unhealthy",
+    "city": "Mardin",
+    "timestamp": "2025-05-02T02:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01ee",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        40.7667,
+        29.9167
+      ]
+    },
+    "pm25": 97.4,
+    "pm10": 137.6,
+    "no2": 47.0,
+    "so2": 9.4,
+    "o3": 28.9,
+    "status": "unhealthy",
+    "city": "Kocaeli",
+    "timestamp": "2025-05-02T02:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b012e",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        41.0082,
+        28.9784
+      ]
+    },
+    "pm25": 34.8,
+    "pm10": 61.4,
+    "no2": 29.5,
+    "so2": 14.7,
+    "o3": 33.1,
+    "status": "moderate",
+    "city": "\u0130stanbul",
+    "timestamp": "2025-05-02T02:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0146",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.9334,
+        32.8597
+      ]
+    },
+    "pm25": 18.8,
+    "pm10": 30.5,
+    "no2": 23.6,
+    "so2": 21.7,
+    "o3": 41.4,
+    "status": "moderate",
+    "city": "Ankara",
+    "timestamp": "2025-05-02T02:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b015e",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        37.9667,
+        34.6792
+      ]
+    },
+    "pm25": 24.6,
+    "pm10": 35.2,
+    "no2": 28.2,
+    "so2": 2.2,
+    "o3": 63.5,
+    "status": "moderate",
+    "city": "Ni\u011fde",
+    "timestamp": "2025-05-02T02:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0176",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        40.65,
+        29.2667
+      ]
+    },
+    "pm25": 17.1,
+    "pm10": 26.6,
+    "no2": 22.4,
+    "so2": 15.4,
+    "o3": 30.4,
+    "status": "moderate",
+    "city": "Yalova",
+    "timestamp": "2025-05-02T02:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b018d",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.42,
+        29.9833
+      ]
+    },
+    "pm25": 46.5,
+    "pm10": 79.1,
+    "no2": 49.1,
+    "so2": 3.6,
+    "o3": 72.9,
+    "status": "moderate",
+    "city": "K\u00fctahya",
+    "timestamp": "2025-05-02T01:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01a5",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.9054,
+        41.2658
+      ]
+    },
+    "pm25": 82.9,
+    "pm10": 114.9,
+    "no2": 26.8,
+    "so2": 22.3,
+    "o3": 53.1,
+    "status": "unhealthy",
+    "city": "Erzurum",
+    "timestamp": "2025-05-02T01:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01bd",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        41.0201,
+        40.5234
+      ]
+    },
+    "pm25": 26.7,
+    "pm10": 36.2,
+    "no2": 42.3,
+    "so2": 17.2,
+    "o3": 42.6,
+    "status": "moderate",
+    "city": "Rize",
+    "timestamp": "2025-05-02T01:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01d5",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        37.3212,
+        40.7245
+      ]
+    },
+    "pm25": 110.5,
+    "pm10": 157.0,
+    "no2": 12.0,
+    "so2": 3.7,
+    "o3": 35.2,
+    "status": "very-unhealthy",
+    "city": "Mardin",
+    "timestamp": "2025-05-02T01:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b01ed",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        40.7667,
+        29.9167
+      ]
+    },
+    "pm25": 103.6,
+    "pm10": 136.6,
+    "no2": 31.2,
+    "so2": 6.3,
+    "o3": 30.5,
+    "status": "very-unhealthy",
+    "city": "Kocaeli",
+    "timestamp": "2025-05-02T01:10:56.883000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b012d",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        41.0082,
+        28.9784
+      ]
+    },
+    "pm25": 36.6,
+    "pm10": 62.9,
+    "no2": 24.8,
+    "so2": 15.5,
+    "o3": 69.0,
+    "status": "moderate",
+    "city": "\u0130stanbul",
+    "timestamp": "2025-05-02T01:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0145",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.9334,
+        32.8597
+      ]
+    },
+    "pm25": 17.8,
+    "pm10": 29.0,
+    "no2": 10.8,
+    "so2": 9.4,
+    "o3": 86.8,
+    "status": "moderate",
+    "city": "Ankara",
+    "timestamp": "2025-05-02T01:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b015d",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        37.9667,
+        34.6792
+      ]
+    },
+    "pm25": 21.3,
+    "pm10": 35.1,
+    "no2": 44.8,
+    "so2": 22.7,
+    "o3": 73.2,
+    "status": "moderate",
+    "city": "Ni\u011fde",
+    "timestamp": "2025-05-02T01:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b0175",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        40.65,
+        29.2667
+      ]
+    },
+    "pm25": 17.4,
+    "pm10": 31.6,
+    "no2": 13.4,
+    "so2": 8.3,
+    "o3": 85.9,
+    "status": "moderate",
+    "city": "Yalova",
+    "timestamp": "2025-05-02T01:10:56.882000"
+  },
+  {
+    "_id": "68147e100c73bfa5aa3b018c",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        39.42,
+        29.9833
+      ]
+    },
+    "pm25": 45.2,
+    "pm10": 69.6,
+    "no2": 33.5,
+    "so2": 7.2,
+    "o3": 39.1,
+    "status": "moderate",
+    "city": "K\u00fctahya",
+    "timestamp": "2025-05-02T00:10:56.883000"
+  }
+]

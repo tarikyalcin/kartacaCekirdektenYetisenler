@@ -1,66 +1,102 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './AnomalyAlerts.css';
 
-const AnomalyAlerts = () => {
-  const [alerts, setAlerts] = useState([]);
-  const [isLive, setIsLive] = useState(true);
+const AnomalyAlerts = ({ anomalies = [] }) => {
+  // Anomali türüne göre metin açıklaması oluştur
+  const getAnomalyTypeText = (type) => {
+    switch (type) {
+      case 'threshold_exceeded':
+        return 'Eşik Değeri Aşıldı';
+      case 'sudden_increase':
+        return 'Ani Artış Tespit Edildi';
+      case 'who_limit_exceeded':
+        return 'WHO Limiti Aşıldı';
+      default:
+        return 'Anomali';
+    }
+  };
 
-  // Burada normalde WebSocket veya SSE bağlantısı ile
-  // backend'den anomali verileri alınacak
-  useEffect(() => {
-    // Örnek veri oluşturma
-    const exampleAlerts = [];
-    
-    // Şu anda örnek veri göstermiyoruz
-    setAlerts(exampleAlerts);
-    
-    // Gerçek bir WebSocket bağlantısı şöyle olabilir:
-    // const socket = new WebSocket('ws://localhost:8000/ws/anomalies');
-    // socket.onmessage = (event) => {
-    //   const data = JSON.parse(event.data);
-    //   setAlerts(prev => [data, ...prev].slice(0, 10));
-    // };
-    // 
-    // return () => {
-    //   socket.close();
-    // };
-  }, []);
+  // Anomali türüne göre sınıf adı belirle
+  const getAnomalyTypeClass = (type) => {
+    switch (type) {
+      case 'threshold_exceeded':
+        return 'threshold';
+      case 'sudden_increase':
+        return 'sudden';
+      case 'who_limit_exceeded':
+        return 'who';
+      default:
+        return '';
+    }
+  };
+
+  // Tarih formatını düzenle
+  const formatDate = (dateString) => {
+    try {
+      const date = new Date(dateString);
+      return date.toLocaleString('tr-TR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    } catch (e) {
+      return dateString || '';
+    }
+  };
 
   return (
     <div className="anomaly-alerts">
-      <div className="alerts-header">
-        <h2>Anomali Uyarıları</h2>
-        <div className="live-indicator">
-          <span className={`indicator-dot ${isLive ? 'active' : ''}`}></span>
-          <span>Canlı</span>
-        </div>
-      </div>
-      
-      {alerts.length > 0 ? (
-        <div className="alerts-list">
-          {alerts.map((alert, index) => (
-            <div key={index} className="alert-item">
-              <div className="alert-header">
-                <span className={`alert-type ${alert.severity}`}>{alert.type}</span>
-                <span className="alert-time">{alert.time}</span>
-              </div>
-              <div className="alert-location">{alert.location}</div>
-              <div className="alert-message">{alert.message}</div>
+      <h2>Anomali Uyarıları</h2>
+      <div className="alerts-container">
+        {anomalies.length === 0 ? (
+          <div className="no-alerts">
+            <div className="no-alerts-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="m15 9-6 6"></path>
+                <path d="m9 9 6 6"></path>
+              </svg>
             </div>
-          ))}
-        </div>
-      ) : (
-        <div className="no-alerts">
-          <div className="no-alerts-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="10"></circle>
-              <path d="M12 8v4"></path>
-              <path d="M12 16h.01"></path>
-            </svg>
+            <p>Şu anda aktif anomali uyarısı bulunmuyor</p>
           </div>
-          <p>Şu anda aktif uyarı bulunmuyor. Sistemde anomali tespit edildiğinde burada görüntülenecektir.</p>
-        </div>
-      )}
+        ) : (
+          <>
+            {anomalies.map((alert, index) => (
+              <div key={alert._id || index} className={`alert-item ${getAnomalyTypeClass(alert.type)}`}>
+                <div className="alert-header">
+                  <div className="alert-type">{getAnomalyTypeText(alert.type)}</div>
+                  <div className="alert-time">{formatDate(alert.detected_at)}</div>
+                </div>
+                <div className="alert-location">{alert.city || 'Bilinmeyen Konum'}</div>
+                <div className="alert-details">
+                  <div className="alert-value">
+                    <span className="detail-label">Değer:</span>
+                    <span className="detail-value">{alert.value} µg/m³</span>
+                  </div>
+                  {alert.threshold && (
+                    <div className="alert-threshold">
+                      <span className="detail-label">Eşik:</span>
+                      <span className="detail-value">{alert.threshold} µg/m³</span>
+                    </div>
+                  )}
+                  {alert.previous_value && (
+                    <div className="alert-previous">
+                      <span className="detail-label">Önceki:</span>
+                      <span className="detail-value">{alert.previous_value} µg/m³</span>
+                    </div>
+                  )}
+                  <div className="alert-parameter">
+                    <span className="detail-label">Parametre:</span>
+                    <span className="detail-value">{alert.parameter}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </>
+        )}
+      </div>
     </div>
   );
 };
