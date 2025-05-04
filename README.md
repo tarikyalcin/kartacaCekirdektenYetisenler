@@ -1,100 +1,93 @@
 # Gerçek Zamanlı Hava Kirliliği İzleme Platformu
 
-Bu proje, dünya genelinde hava kirlilik verilerini toplayan, analiz eden ve görselleştiren web tabanlı bir platformdur.
+Bu proje, dünya genelinde hava kirlilik verilerini toplayan, analiz eden ve görselleştiren web tabanlı bir platformdur. Anomali tespiti, gerçek zamanlı izleme ve interaktif harita görselleştirmesi gibi özellikler sunar.
 
-## Teknoloji Seçimleri
+## Projenin Amacı ve Kapsamı
 
-- **Backend:** Python (FastAPI)
-- **Mimari:** Monolitik
+Sistem, çeşitli bölgelerdeki hava kirliliği verilerini işleyerek kullanıcılara anlamlı bilgiler sunar ve kritik kirlilik seviyelerinde uyarılar verir.
+
+## Teknolojiler ve Mimari
+
+- **Backend:** Python (FastAPI) - Monolitik yapıda
+- **Frontend:** React (Leaflet, Chart.js)
 - **Veritabanı:** MongoDB
-- **Kuyruklama Sistemi:** RabbitMQ
-- **Frontend:** React
-- **Harita Kütüphanesi:** Leaflet
-- **Grafik Kütüphanesi:** Chart.js
+- **Kuyruklama:** RabbitMQ
+- **Anomali Tespiti:** Eşik değeri kontrolü, Z-score analizi, coğrafi karşılaştırma
 
-## Özellikler
-
-- Gerçek zamanlı hava kalitesi verilerini toplama ve analiz etme
-- Anomali tespiti ve uyarı mekanizması
-- Interaktif dünya haritası üzerinde kirlilik seviyelerini görselleştirme
-- Kirlilik seviyelerinin zaman içindeki değişimini gösteren grafikler
-- WHO limitlerini aşan bölgelerin tespiti ve raporlanması
-- WebSocket üzerinden gerçek zamanlı veri iletimi
-
-## Proje Adımları
-
-### 1. Proje Yapısının Oluşturulması
-- [x] Proje dizin yapısının kurulması
-- [x] Backend için gerekli kütüphanelerin kurulumu
-- [x] Frontend için gerekli kütüphanelerin kurulumu
-- [x] Docker yapılandırması
-
-### 2. Veritabanı ve Kuyruklama Sisteminin Kurulması
-- [x] MongoDB şema tasarımı ve indeksleme
-- [x] RabbitMQ kuyruk yapılandırması
-- [x] Bağlantı testleri
-
-### 3. Backend Geliştirme
-- [x] API endpoints tanımlama
-- [x] Veri işleme fonksiyonları
-- [x] Anomali tespiti algoritmaları
-- [x] WebSocket/SSE yapılandırması
-
-### 4. Frontend Geliştirme
-- [x] Ana sayfa düzeni (responsive)
-- [x] Harita entegrasyonu (Leaflet)
-- [x] Grafik oluşturma (Chart.js)
-- [x] API bağlantıları
-- [x] Gerçek zamanlı veri görselleştirme
-
-### 5. Test Scriptleri Geliştirme
-- [x] Manuel veri girişi scripti
-- [x] Otomatik test scripti
-
-### 6. Sistem Entegrasyonu ve Testler
-- [x] Backend-Frontend entegrasyonu
-- [x] Uçtan uca testler
-- [x] Hata ayıklama
-
-### 7. Containerization ve Dağıtım
-- [x] Dockerfile optimizasyonu
-- [x] Docker-compose tamamlama
-- [x] Dağıtım testleri
-
-### 8. Dokümantasyon
-- [x] API dokümantasyonu (Swagger/OpenAPI)
-- [ ] Kurulum ve kullanım rehberi
-- [x] Sorun giderme rehberi
+Veri Akışı: API → RabbitMQ → İşleme Servisi → MongoDB → Frontend
 
 ## Kurulum ve Çalıştırma
 
-### Docker ile Çalıştırma
+### Docker ile Çalıştırma (Önerilen)
 
 1. Repoyu klonlayın:
    ```
-   git clone https://github.com/username/hava-kirliligi-izleme.git
-   cd hava-kirliligi-izleme
+   git clone https://github.com/[kullanici-adi]/kartacaCekirdektenYetisenler.git
+   cd kartacaCekirdektenYetisenler
    ```
 
-2. Docker Compose ile servisleri başlatın:
+2. Docker Compose ile çalıştırın:
    ```
    docker-compose up -d
    ```
 
-3. Tarayıcınızda aşağıdaki adreslere erişin:
-   - Frontend: http://localhost:3000
+3. Erişim adresleri:
+   - Frontend: http://localhost:4000
    - Backend API: http://localhost:8000
    - API Dokümantasyonu: http://localhost:8000/docs
-   - RabbitMQ Yönetim Paneli: http://localhost:15673 (Kullanıcı adı: admin, Şifre: password)
+   - RabbitMQ Yönetim Paneli: http://localhost:15673 (Kullanıcı: admin, Şifre: password)
 
-### Test Scriptlerini Çalıştırma
+## Test Scriptleri
 
-Örnek veri göndermek için:
-```
+### Veri Gönderme
+
+```bash
 python test_send_async.py
 ```
 
-Anomali uyarılarını dinlemek için:
+### Manuel Veri Girişi
+
+```bash
+# Linux/Mac
+./manual-input.sh 39.9334 32.8597 pm25 75.3 Ankara Türkiye
+
+# Windows PowerShell
+.\manual-input.ps1 -latitude 39.9334 -longitude 32.8597 -parameter pm25 -value 75.3 -city Ankara -country Türkiye
 ```
-python test_listen_anomaly.py
-``` 
+
+### Otomatik Test
+
+```bash
+# Linux/Mac
+./auto-test.sh --duration=300 --rate=2 --anomaly-chance=30
+
+# Windows PowerShell
+.\auto-test.ps1 -Duration 300 -Rate 2 -AnomalyChance 30
+```
+
+## API Özeti
+
+API dokümantasyonu için Swagger UI: `http://localhost:8000/docs`
+
+- `POST /api/data` - Hava kalitesi verisi gönderme
+- `GET /api/air-quality/{lat}/{lon}` - Belirli konum için veri alma
+- `GET /api/anomalies` - Anomalileri listeleme
+- `GET /api/pollution-density` - Coğrafi bölgeye göre kirlilik yoğunluğu
+- `GET /api/health` - Sistem sağlık durumu
+
+## Sorun Giderme
+
+- **Docker sorunları:** `docker logs [konteyner-adı]` ile logları kontrol edin
+- **Veri görünmüyor:** Veritabanına örnek veri eklemek için `python scripts/add_real_city_data.py` çalıştırın
+- **Port çakışması:** Kullanılan portların (4000, 8000, 27017, 5673, 15673) müsait olduğunu kontrol edin
+- **Frontend harita sorunları:** Tarayıcı konsolunu ve API bağlantısını kontrol edin
+
+## Anomali Tespiti Eşik Değerleri
+
+- PM2.5: > 25 μg/m³
+- PM10: > 50 μg/m³
+- NO2: > 40 μg/m³
+- SO2: > 20 μg/m³
+- O3: > 100 μg/m³
+
+Daha detaylı bilgi için lütfen `KURULUM_VE_CALISTIRMA.md` dosyasına bakın. 

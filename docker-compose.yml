@@ -54,7 +54,7 @@ services:
     build:
       context: ./frontend
     ports:
-      - "3000:80"  # Nginx ile 80 portunda sunulacak
+      - "4000:80"  # Nginx ile 80 portunda sunulacak, dışarıdan 4000 portundan erişilecek
     depends_on:
       - backend
     restart: on-failure:3

@@ -88,14 +88,6 @@ function App() {
         <TrendChart />
         
       </main>
-      <footer className="footer">
-        <p>&copy; 2025 Hava Kalitesi İzleme Platformu. Tüm hakları saklıdır.</p>
-        <div className="footer-links">
-          <a href="#">Gizlilik Politikası</a>
-          <a href="#">Hakkımızda</a>
-          <a href="#">İletişim</a>
-        </div>
-      </footer>
     </div>
   );
 }

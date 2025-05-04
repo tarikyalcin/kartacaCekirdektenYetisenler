@@ -52,17 +52,17 @@ Kurulum tamamlandıktan sonra, uygulamayı başlatmak için:
 
 Windows PowerShell üzerinde:
 ```powershell
-$env:PORT = "3005"; npm start
+$env:PORT = "4000"; npm start
 ```
 
 Bash/Linux/Mac üzerinde:
 ```bash
-PORT=3005 npm start
+PORT=4000 npm start
 ```
 
 Uygulama başarıyla başlatıldığında, tarayıcınızda otomatik olarak açılacaktır veya şu adresten erişebilirsiniz:
 ```
-http://localhost:3005
+http://localhost:4000
 ```
 
 ### 5. Backend Servislerini Çalıştırma
@@ -71,6 +71,7 @@ Backend servislerini çalıştırmak için yeni bir terminal açın:
 
 ```bash
 cd backend
+pip install -r requirements.txt
 python app.py
 ```
 
@@ -81,6 +82,9 @@ Tüm sistemi Docker ile çalıştırmak isterseniz:
 ```bash
 docker-compose up
 ```
+
+Frontend: http://localhost:4000
+Backend API: http://localhost:8000
 
 ## Harita Görüntüleme Özellikleri
 
@@ -95,10 +99,10 @@ Harita görüntülemede şu özellikler bulunmaktadır:
 ## Sorun Giderme
 
 ### Port Çakışması
-Eğer 3005 portu başka bir uygulama tarafından kullanılıyorsa, farklı bir port numarası kullanabilirsiniz:
+Eğer 4000 portu başka bir uygulama tarafından kullanılıyorsa, farklı bir port numarası kullanabilirsiniz:
 
 ```powershell
-$env:PORT = "3006"; npm start
+$env:PORT = "4001"; npm start
 ```
 
 ### MongoDB Bağlantı Hatası

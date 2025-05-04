@@ -38,12 +38,12 @@ test_message = {
     "type": "anomaly",
     "data": {
         "parameter": "pm25",
-        "location": "Ankara, Türkiye",
-        "latitude": 39.9334,
-        "longitude": 32.8597,
-        "actual_value": 180.5,
-        "threshold": 100.0,
-        "severity": "critical",
+        "location": "Muğla, Türkiye",
+        "latitude": 37.2154,
+        "longitude": 28.3636,
+        "actual_value": 85.7,
+        "threshold": 50.0,
+        "severity": "high",
         "detected_at": datetime.utcnow().isoformat()
     },
     "timestamp": datetime.utcnow().isoformat()

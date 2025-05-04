@@ -155,29 +155,6 @@ h1 {
   padding: 20px;
 }
 
-.footer {
-  margin-top: auto;
-  background-color: #2d3748;
-  color: #fff;
-  padding: 20px;
-  text-align: center;
-}
-
-.footer-links {
-  margin-top: 10px;
-}
-
-.footer-links a {
-  color: #cbd5e0;
-  text-decoration: none;
-  margin: 0 10px;
-}
-
-.footer-links a:hover {
-  color: #ffffff;
-  text-decoration: underline;
-}
-
 @media (max-width: 768px) {
   .main-content {
     flex-direction: column;
