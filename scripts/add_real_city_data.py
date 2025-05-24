@@ -10,9 +10,9 @@ import random
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 
-# MongoDB bağlantı bilgileri - Atlas URL'sini kullan
-MONGODB_URL = os.environ.get("MONGODB_URL", "mongodb+srv://tarikyalcinwork:NVuuGYILCxf0YIyS@air-quality-monitoring.jq3rc.mongodb.net/?retryWrites=true&w=majority&appName=air-quality-monitoring")
-MONGODB_DB_NAME = os.environ.get("MONGODB_DB_NAME", "air_quality_monitoring")
+# MongoDB bağlantı bilgileri - Docker Compose ile çalıştırıldığında
+MONGODB_URL = os.environ.get("MONGODB_URL", "mongodb://admin:password@mongodb:27017/air_quality_db?authSource=admin")
+MONGODB_DB_NAME = os.environ.get("MONGODB_DB_NAME", "air_quality_db")
 
 # Şehir verileri - gerçek konumlar
 CITIES = [
